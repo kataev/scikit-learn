@@ -53,7 +53,9 @@ Main features
    persistence and flow-execution logic from domain logic or algorithmic
    code by writing the operations as a set of steps with well-defined
    inputs and  outputs: Python functions. Joblib can save their
-   computation to disk and rerun it only if necessary::
+   computation to disk and rerun it only if necessary:
+
+.. sourcecode:: pycon
 
       >>> from sklearn.externals.joblib import Memory
       >>> cachedir = 'your_cache_dir_goes_here'
@@ -73,7 +75,9 @@ Main features
       >>> # The above call did not trigger an evaluation
 
 2) **Embarrassingly parallel helper:** to make it easy to write readable
-   parallel code and debug it quickly::
+   parallel code and debug it quickly:
+
+.. sourcecode:: pycon
 
       >>> from sklearn.externals.joblib import Parallel, delayed
       >>> from math import sqrt

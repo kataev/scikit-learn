@@ -45,7 +45,9 @@ less than 200ms by using a memmapped version memoized on the disk in the
 ``~/scikit_learn_data/lfw_home/`` folder using ``joblib``.
 
 The first loader is used for the Face Identification task: a multi-class
-classification task (hence supervised learning)::
+classification task (hence supervised learning):
+
+.. sourcecode:: pycon
 
   >>> from sklearn.datasets import fetch_lfw_people
   >>> lfw_people = fetch_lfw_people(min_faces_per_person=70, resize=0.4)
@@ -62,7 +64,9 @@ classification task (hence supervised learning)::
   Tony Blair
 
 The default slice is a rectangular shape around the face, removing
-most of the background::
+most of the background:
+
+.. sourcecode:: pycon
 
   >>> lfw_people.data.dtype
   dtype('float32')
@@ -74,7 +78,9 @@ most of the background::
   (1288, 50, 37)
 
 Each of the ``1140`` faces is assigned to a single person id in the ``target``
-array::
+array:
+
+.. sourcecode:: pycon
 
   >>> lfw_people.target.shape
   (1288,)
@@ -83,7 +89,9 @@ array::
   [5, 6, 3, 1, 0, 1, 3, 4, 3, 0]
 
 The second loader is typically used for the face verification task: each sample
-is a pair of two picture belonging or not to the same person::
+is a pair of two picture belonging or not to the same person:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.datasets import fetch_lfw_pairs
   >>> lfw_pairs_train = fetch_lfw_pairs(subset='train')

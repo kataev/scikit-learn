@@ -515,7 +515,9 @@ Spectral Clustering Graphs
 
 Spectral Clustering can also be used to cluster graphs by their spectral
 embeddings.  In this case, the affinity matrix is the adjacency matrix of the
-graph, and SpectralClustering is initialized with `affinity='precomputed'`::
+graph, and SpectralClustering is initialized with `affinity='precomputed'`:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.cluster import SpectralClustering
     >>> sc = SpectralClustering(3, affinity='precomputed', n_init=100,
@@ -1040,7 +1042,9 @@ Given the knowledge of the ground truth class assignments ``labels_true``
 and our clustering algorithm assignments of the same samples
 ``labels_pred``, the **adjusted Rand index** is a function that measures
 the **similarity** of the two assignments, ignoring permutations and **with
-chance normalization**::
+chance normalization**:
+
+.. sourcecode:: pycon
 
   >>> from sklearn import metrics
   >>> labels_true = [0, 0, 0, 1, 1, 1]
@@ -1050,7 +1054,9 @@ chance normalization**::
   0.24...
 
 One can permute 0 and 1 in the predicted labels, rename 2 to 3, and get
-the same score::
+the same score:
+
+.. sourcecode:: pycon
 
   >>> labels_pred = [1, 1, 0, 0, 3, 3]
   >>> metrics.adjusted_rand_score(labels_true, labels_pred)  # doctest: +ELLIPSIS
@@ -1058,18 +1064,24 @@ the same score::
 
 Furthermore, :func:`adjusted_rand_score` is **symmetric**: swapping the argument
 does not change the score. It can thus be used as a **consensus
-measure**::
+measure**:
+
+.. sourcecode:: pycon
 
   >>> metrics.adjusted_rand_score(labels_pred, labels_true)  # doctest: +ELLIPSIS
   0.24...
 
-Perfect labeling is scored 1.0::
+Perfect labeling is scored 1.0:
+
+.. sourcecode:: pycon
 
   >>> labels_pred = labels_true[:]
   >>> metrics.adjusted_rand_score(labels_true, labels_pred)
   1.0
 
-Bad (e.g. independent labelings) have negative or close to 0.0 scores::
+Bad (e.g. independent labelings) have negative or close to 0.0 scores:
+
+.. sourcecode:: pycon
 
   >>> labels_true = [0, 1, 2, 0, 3, 4, 5, 1]
   >>> labels_pred = [1, 1, 0, 0, 2, 2, 2, 2]
@@ -1161,7 +1173,9 @@ our clustering algorithm assignments of the same samples ``labels_pred``, the
 assignments, ignoring permutations.  Two different normalized versions of this
 measure are available, **Normalized Mutual Information (NMI)** and **Adjusted
 Mutual Information (AMI)**. NMI is often used in the literature, while AMI was
-proposed more recently and is **normalized against chance**::
+proposed more recently and is **normalized against chance**:
+
+.. sourcecode:: pycon
 
   >>> from sklearn import metrics
   >>> labels_true = [0, 0, 0, 1, 1, 1]
@@ -1171,7 +1185,9 @@ proposed more recently and is **normalized against chance**::
   0.22504...
 
 One can permute 0 and 1 in the predicted labels, rename 2 to 3 and get
-the same score::
+the same score:
+
+.. sourcecode:: pycon
 
   >>> labels_pred = [1, 1, 0, 0, 3, 3]
   >>> metrics.adjusted_mutual_info_score(labels_true, labels_pred)  # doctest: +SKIP
@@ -1179,12 +1195,16 @@ the same score::
 
 All, :func:`mutual_info_score`, :func:`adjusted_mutual_info_score` and
 :func:`normalized_mutual_info_score` are symmetric: swapping the argument does
-not change the score. Thus they can be used as a **consensus measure**::
+not change the score. Thus they can be used as a **consensus measure**:
+
+.. sourcecode:: pycon
 
   >>> metrics.adjusted_mutual_info_score(labels_pred, labels_true)  # doctest: +SKIP
   0.22504...
 
-Perfect labeling is scored 1.0::
+Perfect labeling is scored 1.0:
+
+.. sourcecode:: pycon
 
   >>> labels_pred = labels_true[:]
   >>> metrics.adjusted_mutual_info_score(labels_true, labels_pred)  # doctest: +SKIP
@@ -1193,12 +1213,16 @@ Perfect labeling is scored 1.0::
   >>> metrics.normalized_mutual_info_score(labels_true, labels_pred)  # doctest: +SKIP
   1.0
 
-This is not true for ``mutual_info_score``, which is therefore harder to judge::
+This is not true for ``mutual_info_score``, which is therefore harder to judge:
+
+.. sourcecode:: pycon
 
   >>> metrics.mutual_info_score(labels_true, labels_pred)  # doctest: +SKIP
   0.69...
 
-Bad (e.g. independent labelings) have non-positive scores::
+Bad (e.g. independent labelings) have non-positive scores:
+
+.. sourcecode:: pycon
 
   >>> labels_true = [0, 1, 2, 0, 3, 4, 5, 1]
   >>> labels_pred = [1, 1, 0, 0, 2, 2, 2, 2]
@@ -1354,7 +1378,9 @@ desirable objectives for any cluster assignment:
 
 We can turn those concept as scores :func:`homogeneity_score` and
 :func:`completeness_score`. Both are bounded below by 0.0 and above by
-1.0 (higher is better)::
+1.0 (higher is better):
+
+.. sourcecode:: pycon
 
   >>> from sklearn import metrics
   >>> labels_true = [0, 0, 0, 1, 1, 1]
@@ -1367,7 +1393,9 @@ We can turn those concept as scores :func:`homogeneity_score` and
   0.42...
 
 Their harmonic mean called **V-measure** is computed by
-:func:`v_measure_score`::
+:func:`v_measure_score`:
+
+.. sourcecode:: pycon
 
   >>> metrics.v_measure_score(labels_true, labels_pred)    # doctest: +ELLIPSIS
   0.51...
@@ -1376,14 +1404,18 @@ The V-measure is actually equivalent to the mutual information (NMI)
 discussed above, with the aggregation function being the arithmetic mean [B2011]_.
 
 Homogeneity, completeness and V-measure can be computed at once using
-:func:`homogeneity_completeness_v_measure` as follows::
+:func:`homogeneity_completeness_v_measure` as follows:
+
+.. sourcecode:: pycon
 
   >>> metrics.homogeneity_completeness_v_measure(labels_true, labels_pred)
   ...                                                      # doctest: +ELLIPSIS
   (0.66..., 0.42..., 0.51...)
 
 The following clustering assignment is slightly better, since it is
-homogeneous but not complete::
+homogeneous but not complete:
+
+.. sourcecode:: pycon
 
   >>> labels_pred = [0, 0, 0, 1, 2, 2]
   >>> metrics.homogeneity_completeness_v_measure(labels_true, labels_pred)
@@ -1521,20 +1553,26 @@ between two clusters.
   0.47140...
 
 One can permute 0 and 1 in the predicted labels, rename 2 to 3 and get
-the same score::
+the same score:
+
+.. sourcecode:: pycon
 
   >>> labels_pred = [1, 1, 0, 0, 3, 3]
 
   >>> metrics.fowlkes_mallows_score(labels_true, labels_pred)  # doctest: +ELLIPSIS
   0.47140...
 
-Perfect labeling is scored 1.0::
+Perfect labeling is scored 1.0:
+
+.. sourcecode:: pycon
 
   >>> labels_pred = labels_true[:]
   >>> metrics.fowlkes_mallows_score(labels_true, labels_pred)  # doctest: +ELLIPSIS
   1.0
 
-Bad (e.g. independent labelings) have zero scores::
+Bad (e.g. independent labelings) have zero scores:
+
+.. sourcecode:: pycon
 
   >>> labels_true = [0, 1, 2, 0, 3, 4, 5, 1]
   >>> labels_pred = [1, 1, 0, 0, 2, 2, 2, 2]
@@ -1813,7 +1851,9 @@ The contingency matrix provides sufficient statistics for all clustering
 metrics where the samples are independent and identically distributed and
 one doesn't need to account for some instances not being clustered.
 
-Here is an example::
+Here is an example:
+
+.. sourcecode:: pycon
 
    >>> from sklearn.metrics.cluster import contingency_matrix
    >>> x = ["a", "a", "a", "b", "b", "b"]

@@ -37,7 +37,9 @@ to a list of discrete of possibilities without ordering (e.g. topic
 identifiers, types of objects, tags, names...).
 
 In the following, "city" is a categorical attribute while "temperature"
-is a traditional numerical feature::
+is a traditional numerical feature:
+
+.. sourcecode:: pycon
 
   >>> measurements = [
   ...     {'city': 'Dubai', 'temperature': 33.},
@@ -65,7 +67,9 @@ For example, suppose that we have a first algorithm that extracts Part of
 Speech (PoS) tags that we want to use as complementary tags for training
 a sequence classifier (e.g. a chunker). The following dict could be
 such a window of features extracted around the word 'sat' in the sentence
-'The cat sat on the mat.'::
+'The cat sat on the mat.':
+
+.. sourcecode:: pycon
 
   >>> pos_window = [
   ...     {
@@ -81,7 +85,9 @@ such a window of features extracted around the word 'sat' in the sentence
 
 This description can be vectorized into a sparse two-dimensional matrix
 suitable for feeding into a classifier (maybe after being piped into a
-:class:`text.TfidfTransformer` for normalization)::
+:class:`text.TfidfTransformer` for normalization):
+
+.. sourcecode:: pycon
 
   >>> vec = DictVectorizer()
   >>> pos_vectorized = vec.fit_transform(pos_window)
@@ -280,13 +286,17 @@ Common Vectorizer usage
 -----------------------
 
 :class:`CountVectorizer` implements both tokenization and occurrence
-counting in a single class::
+counting in a single class:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.feature_extraction.text import CountVectorizer
 
 This model has many parameters, however the default values are quite
 reasonable (please see  the :ref:`reference documentation
-<text_feature_extraction_ref>` for the details)::
+<text_feature_extraction_ref>` for the details):
+
+.. sourcecode:: pycon
 
   >>> vectorizer = CountVectorizer()
   >>> vectorizer                     # doctest: +NORMALIZE_WHITESPACE +ELLIPSIS
@@ -298,7 +308,9 @@ reasonable (please see  the :ref:`reference documentation
           tokenizer=None, vocabulary=None)
 
 Let's use it to tokenize and count the word occurrences of a minimalistic
-corpus of text documents::
+corpus of text documents:
+
+.. sourcecode:: pycon
 
   >>> corpus = [
   ...     'This is the first document.',
@@ -313,7 +325,9 @@ corpus of text documents::
 
 The default configuration tokenizes the string by extracting words of
 at least 2 letters. The specific function that does this step can be
-requested explicitly::
+requested explicitly:
+
+.. sourcecode:: pycon
 
   >>> analyze = vectorizer.build_analyzer()
   >>> analyze("This is a text document to analyze.") == (
@@ -322,7 +336,9 @@ requested explicitly::
 
 Each term found by the analyzer during the fit is assigned a unique
 integer index corresponding to a column in the resulting matrix. This
-interpretation of the columns can be retrieved as follows::
+interpretation of the columns can be retrieved as follows:
+
+.. sourcecode:: pycon
 
   >>> vectorizer.get_feature_names() == (
   ...     ['and', 'document', 'first', 'is', 'one',
@@ -336,13 +352,17 @@ interpretation of the columns can be retrieved as follows::
          [0, 1, 1, 1, 0, 0, 1, 0, 1]]...)
 
 The converse mapping from feature name to column index is stored in the
-``vocabulary_`` attribute of the vectorizer::
+``vocabulary_`` attribute of the vectorizer:
+
+.. sourcecode:: pycon
 
   >>> vectorizer.vocabulary_.get('document')
   1
 
 Hence words that were not seen in the training corpus will be completely
-ignored in future calls to the transform method::
+ignored in future calls to the transform method:
+
+.. sourcecode:: pycon
 
   >>> vectorizer.transform(['Something completely new.']).toarray()
   ...                           # doctest: +ELLIPSIS
@@ -352,7 +372,9 @@ Note that in the previous corpus, the first and the last documents have
 exactly the same words hence are encoded in equal vectors. In particular
 we lose the information that the last document is an interrogative form. To
 preserve some of the local ordering information we can extract 2-grams
-of words in addition to the 1-grams (individual words)::
+of words in addition to the 1-grams (individual words):
+
+.. sourcecode:: pycon
 
   >>> bigram_vectorizer = CountVectorizer(ngram_range=(1, 2),
   ...                                     token_pattern=r'\b\w+\b', min_df=1)
@@ -362,7 +384,9 @@ of words in addition to the 1-grams (individual words)::
   True
 
 The vocabulary extracted by this vectorizer is hence much bigger and
-can now resolve ambiguities encoded in local positioning patterns::
+can now resolve ambiguities encoded in local positioning patterns:
+
+.. sourcecode:: pycon
 
   >>> X_2 = bigram_vectorizer.fit_transform(corpus).toarray()
   >>> X_2
@@ -374,7 +398,9 @@ can now resolve ambiguities encoded in local positioning patterns::
 
 
 In particular the interrogative form "Is this" is only present in the
-last document::
+last document:
+
+.. sourcecode:: pycon
 
   >>> feature_index = bigram_vectorizer.vocabulary_.get('is this')
   >>> X_2[:, feature_index]     # doctest: +ELLIPSIS
@@ -465,7 +491,9 @@ with ``smooth_idf=False``, the
 :math:`\text{idf}(t) = log{\frac{n_d}{\text{df}(d,t)}} + 1`
 
 This normalization is implemented by the :class:`TfidfTransformer`
-class::
+class:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.feature_extraction.text import TfidfTransformer
   >>> transformer = TfidfTransformer(smooth_idf=False)
@@ -479,7 +507,9 @@ Again please see the :ref:`reference documentation
 Let's take an example with the following counts. The first term is present
 100% of the time hence not very interesting. The two other features only
 in less than 50% of the time hence probably more representative of the
-content of the documents::
+content of the documents:
+
+.. sourcecode:: pycon
 
   >>> counts = [[3, 0, 1],
   ...           [2, 0, 0],
@@ -550,7 +580,9 @@ Using this modification, the tf-idf of the third term in document 1 changes to
 And the L2-normalized tf-idf changes to
 
 :math:`\frac{[3, 0, 1.8473]}{\sqrt{\big(3^2 + 0^2 + 1.8473^2\big)}}
-= [0.8515, 0, 0.5243]`::
+= [0.8515, 0, 0.5243]`:
+
+.. sourcecode:: pycon
 
   >>> transformer = TfidfTransformer()
   >>> transformer.fit_transform(counts).toarray()
@@ -563,7 +595,9 @@ And the L2-normalized tf-idf changes to
 
 The weights of each
 feature computed by the ``fit`` method call are stored in a model
-attribute::
+attribute:
+
+.. sourcecode:: pycon
 
   >>> transformer.idf_                       # doctest: +ELLIPSIS
   array([1. ..., 2.25..., 1.84...])
@@ -573,7 +607,9 @@ attribute::
 
 As tf–idf is very often used for text features, there is also another
 class called :class:`TfidfVectorizer` that combines all the options of
-:class:`CountVectorizer` and :class:`TfidfTransformer` in a single model::
+:class:`CountVectorizer` and :class:`TfidfTransformer` in a single model:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.feature_extraction.text import TfidfVectorizer
   >>> vectorizer = TfidfVectorizer()
@@ -724,7 +760,9 @@ A simple bag of words representation would consider these two as
 very distinct documents, differing in both of the two possible features.
 A character 2-gram representation, however, would find the documents
 matching in 4 out of 8 features, which may help the preferred classifier
-decide better::
+decide better:
+
+.. sourcecode:: pycon
 
   >>> ngram_vectorizer = CountVectorizer(analyzer='char_wb', ngram_range=(2, 2))
   >>> counts = ngram_vectorizer.fit_transform(['words', 'wprds'])
@@ -738,7 +776,9 @@ decide better::
 In the above example, ``char_wb`` analyzer is used, which creates n-grams
 only from characters inside word boundaries (padded with space on each
 side). The ``char`` analyzer, alternatively, creates n-grams that
-span across words::
+span across words:
+
+.. sourcecode:: pycon
 
   >>> ngram_vectorizer = CountVectorizer(analyzer='char_wb', ngram_range=(5, 5))
   >>> ngram_vectorizer.fit_transform(['jumpy fox'])
@@ -815,7 +855,9 @@ preprocessing and tokenization features of the :class:`CountVectorizer`.
 This combination is implementing in :class:`HashingVectorizer`,
 a transformer class that is mostly API compatible with :class:`CountVectorizer`.
 :class:`HashingVectorizer` is stateless,
-meaning that you don't have to call ``fit`` on it::
+meaning that you don't have to call ``fit`` on it:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.feature_extraction.text import HashingVectorizer
   >>> hv = HashingVectorizer(n_features=10)
@@ -841,7 +883,9 @@ algorithms which operate on CSR matrices (``LinearSVC(dual=True)``,
 algorithms that work with CSC matrices (``LinearSVC(dual=False)``, ``Lasso()``,
 etc).
 
-Let's try again with the default setting::
+Let's try again with the default setting:
+
+.. sourcecode:: pycon
 
   >>> hv = HashingVectorizer()
   >>> hv.transform(corpus)
@@ -888,7 +932,9 @@ Customizing the vectorizer classes
 ----------------------------------
 
 It is possible to customize the behavior by passing a callable
-to the vectorizer constructor::
+to the vectorizer constructor:
+
+.. sourcecode:: pycon
 
   >>> def my_tokenizer(s):
   ...     return s.split()
@@ -932,7 +978,9 @@ Some tips and tricks:
     scikit-learn codebase, but can be added by customizing either the
     tokenizer or the analyzer.
     Here's a ``CountVectorizer`` with a tokenizer and lemmatizer using
-    `NLTK <http://www.nltk.org>`_::
+    `NLTK <http://www.nltk.org>`_:
+
+.. sourcecode:: pycon
 
         >>> from nltk import word_tokenize          # doctest: +SKIP
         >>> from nltk.stem import WordNetLemmatizer # doctest: +SKIP
@@ -948,7 +996,9 @@ Some tips and tricks:
 
 
     The following example will, for instance, transform some British spelling
-    to American spelling::
+    to American spelling:
+
+.. sourcecode:: pycon
 
         >>> import re
         >>> def to_british(tokens):
@@ -990,7 +1040,9 @@ The :func:`extract_patches_2d` function extracts patches from an image stored
 as a two-dimensional array, or three-dimensional with color information along
 the third axis. For rebuilding an image from all its patches, use
 :func:`reconstruct_from_patches_2d`. For example let use generate a 4x4 pixel
-picture with 3 color channels (e.g. in RGB format)::
+picture with 3 color channels (e.g. in RGB format):
+
+.. sourcecode:: pycon
 
     >>> import numpy as np
     >>> from sklearn.feature_extraction import image
@@ -1020,14 +1072,18 @@ picture with 3 color channels (e.g. in RGB format)::
            [27, 30]])
 
 Let us now try to reconstruct the original image from the patches by averaging
-on overlapping areas::
+on overlapping areas:
+
+.. sourcecode:: pycon
 
     >>> reconstructed = image.reconstruct_from_patches_2d(patches, (4, 4, 3))
     >>> np.testing.assert_array_equal(one_image, reconstructed)
 
 The :class:`PatchExtractor` class works in the same way as
 :func:`extract_patches_2d`, only it supports multiple images as input. It is
-implemented as an estimator, so it can be used in pipelines. See::
+implemented as an estimator, so it can be used in pipelines. See:
+
+.. sourcecode:: pycon
 
     >>> five_images = np.arange(5 * 4 * 4 * 3).reshape(5, 4, 4, 3)
     >>> patches = image.PatchExtractor((2, 2)).transform(five_images)

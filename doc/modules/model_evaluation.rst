@@ -145,7 +145,9 @@ into callables that can be used for model evaluation.
 
 One typical use case is to wrap an existing metric function from the library
 with non-default values for its parameters, such as the ``beta`` parameter for
-the :func:`fbeta_score` function::
+the :func:`fbeta_score` function:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.metrics import fbeta_score, make_scorer
     >>> ftwo_scorer = make_scorer(fbeta_score, beta=2)
@@ -173,7 +175,9 @@ take several parameters:
 * any additional parameters, such as ``beta`` or ``labels`` in :func:`f1_score`.
 
 Here is an example of building custom scorers, and of using the
-``greater_is_better`` parameter::
+``greater_is_better`` parameter:
+
+.. sourcecode:: pycon
 
     >>> import numpy as np
     >>> def my_custom_loss_func(y_true, y_pred):
@@ -225,10 +229,16 @@ Scikit-learn also permits evaluation of multiple metrics in ``GridSearchCV``,
 There are two ways to specify multiple scoring metrics for the ``scoring``
 parameter:
 
-- As an iterable of string metrics::
+- As an iterable of string metrics:
+
+.. sourcecode:: pycon
+
       >>> scoring = ['accuracy', 'precision']
 
-- As a ``dict`` mapping the scorer name to the scoring function::
+- As a ``dict`` mapping the scorer name to the scoring function:
+
+.. sourcecode:: pycon
+
       >>> from sklearn.metrics import accuracy_score
       >>> from sklearn.metrics import make_scorer
       >>> scoring = {'accuracy': make_scorer(accuracy_score),
@@ -239,7 +249,9 @@ predefined metric strings.
 
 Currently only those scorer functions that return a single score can be passed
 inside the dict. Scorer functions that return multiple values are not
-permitted and will require a wrapper to return a single metric::
+permitted and will require a wrapper to return a single metric:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.model_selection import cross_validate
     >>> from sklearn.metrics import confusion_matrix
@@ -404,7 +416,9 @@ where :math:`1(x)` is the `indicator function
   >>> accuracy_score(y_true, y_pred, normalize=False)
   2
 
-In the multilabel case with binary label indicators: ::
+In the multilabel case with binary label indicators: :
+
+.. sourcecode:: pycon
 
   >>> accuracy_score(np.array([[0, 1], [1, 1]]), np.ones((2, 2)))
   0.5
@@ -536,7 +550,9 @@ with each row corresponding to the true class
 
 By definition, entry :math:`i, j` in a confusion matrix is
 the number of observations actually in group :math:`i`, but
-predicted to be in group :math:`j`. Here is an example::
+predicted to be in group :math:`j`. Here is an example:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.metrics import confusion_matrix
   >>> y_true = [2, 0, 2, 2, 0, 1]
@@ -555,7 +571,9 @@ from the :ref:`sphx_glr_auto_examples_model_selection_plot_confusion_matrix.py` 
    :align: center
 
 For binary problems, we can get counts of true negatives, false positives,
-false negatives and true positives as follows::
+false negatives and true positives as follows:
+
+.. sourcecode:: pycon
 
   >>> y_true = [0, 0, 0, 1, 1, 1, 1, 1]
   >>> y_pred = [0, 1, 0, 1, 0, 1, 0, 1]
@@ -584,7 +602,9 @@ Classification report
 
 The :func:`classification_report` function builds a text report showing the
 main classification metrics. Here is a small example with custom ``target_names``
-and inferred labels::
+and inferred labels:
+
+.. sourcecode:: pycon
 
    >>> from sklearn.metrics import classification_report
    >>> y_true = [0, 1, 2, 2, 0]
@@ -635,7 +655,9 @@ Hamming loss :math:`L_{Hamming}` between two samples is defined as:
    L_{Hamming}(y, \hat{y}) = \frac{1}{n_\text{labels}} \sum_{j=0}^{n_\text{labels} - 1} 1(\hat{y}_j \not= y_j)
 
 where :math:`1(x)` is the `indicator function
-<https://en.wikipedia.org/wiki/Indicator_function>`_. ::
+<https://en.wikipedia.org/wiki/Indicator_function>`_. :
+
+.. sourcecode:: pycon
 
   >>> from sklearn.metrics import hamming_loss
   >>> y_pred = [1, 2, 3, 4]
@@ -643,7 +665,9 @@ where :math:`1(x)` is the `indicator function
   >>> hamming_loss(y_true, y_pred)
   0.25
 
-In the multilabel case with binary label indicators: ::
+In the multilabel case with binary label indicators: :
+
+.. sourcecode:: pycon
 
   >>> hamming_loss(np.array([[0, 1], [1, 1]]), np.zeros((2, 2)))
   0.75
@@ -680,7 +704,9 @@ with a ground truth label set :math:`y_i` and predicted label set
 In binary and multiclass classification, the Jaccard similarity coefficient
 score is equal to the classification accuracy.
 
-::
+:
+
+.. sourcecode:: pycon
 
   >>> import numpy as np
   >>> from sklearn.metrics import jaccard_similarity_score
@@ -691,7 +717,9 @@ score is equal to the classification accuracy.
   >>> jaccard_similarity_score(y_true, y_pred, normalize=False)
   2
 
-In the multilabel case with binary label indicators: ::
+In the multilabel case with binary label indicators: :
+
+.. sourcecode:: pycon
 
   >>> jaccard_similarity_score(np.array([[0, 1], [1, 1]]), np.ones((2, 2)))
   0.75
@@ -822,7 +850,9 @@ In this context, we can define the notions of precision, recall and F-measure:
 
    F_\beta = (1 + \beta^2) \frac{\text{precision} \times \text{recall}}{\beta^2 \text{precision} + \text{recall}}.
 
-Here are some small examples in binary classification::
+Here are some small examples in binary classification:
+
+.. sourcecode:: pycon
 
   >>> from sklearn import metrics
   >>> y_pred = [0, 1, 0, 0]
@@ -969,7 +999,9 @@ by:
   L_\text{Hinge}(y_w, y_t) = \max\left\{1 + y_t - y_w, 0\right\}
 
 Here a small example demonstrating the use of the :func:`hinge_loss` function
-with a svm classifier in a binary class problem::
+with a svm classifier in a binary class problem:
+
+.. sourcecode:: pycon
 
   >>> from sklearn import svm
   >>> from sklearn.metrics import hinge_loss
@@ -988,7 +1020,9 @@ with a svm classifier in a binary class problem::
   0.3...
 
 Here is an example demonstrating the use of the :func:`hinge_loss` function
-with a svm classifier in a multiclass problem::
+with a svm classifier in a multiclass problem:
+
+.. sourcecode:: pycon
 
   >>> X = np.array([[0], [1], [2], [3]])
   >>> Y = np.array([0, 1, 2, 3])
@@ -1139,7 +1173,9 @@ Quoting Wikipedia :
 This function requires the true binary
 value and the target scores, which can either be probability estimates of the
 positive class, confidence values, or binary decisions.
-Here is a small example of how to use the :func:`roc_curve` function::
+Here is a small example of how to use the :func:`roc_curve` function:
+
+.. sourcecode:: pycon
 
     >>> import numpy as np
     >>> from sklearn.metrics import roc_curve
@@ -1243,7 +1279,9 @@ where :math:`1(x)` is the `indicator function
   1
 
 In the multilabel case with binary label indicators, where the first label
-set [0,1] has an error: ::
+set [0,1] has an error: :
+
+.. sourcecode:: pycon
 
   >>> zero_one_loss(np.array([[0, 1], [1, 1]]), np.ones((2, 2)))
   0.5
@@ -1287,7 +1325,9 @@ predictions.
 where : :math:`N` is the total number of predictions, :math:`f_t` is the
 predicted probability of the actual outcome :math:`o_t`.
 
-Here is a small example of usage of this function:::
+Here is a small example of usage of this function::
+
+.. sourcecode:: pycon
 
     >>> import numpy as np
     >>> from sklearn.metrics import brier_score_loss
@@ -1359,7 +1399,9 @@ with :math:`\text{rank}_{ij} = \left|\left\{k: \hat{f}_{ik} \geq \hat{f}_{ij} \r
 Given the rank definition, ties in ``y_scores`` are broken by giving the
 maximal rank that would have been assigned to all tied values.
 
-Here is a small example of usage of this function::
+Here is a small example of usage of this function:
+
+.. sourcecode:: pycon
 
     >>> import numpy as np
     >>> from sklearn.metrics import coverage_error
@@ -1406,7 +1448,9 @@ where
 elements in the set), and :math:`||\cdot||_0` is the :math:`\ell_0` "norm"
 (which computes the number of nonzero elements in a vector).
 
-Here is a small example of usage of this function::
+Here is a small example of usage of this function:
+
+.. sourcecode:: pycon
 
     >>> import numpy as np
     >>> from sklearn.metrics import label_ranking_average_precision_score
@@ -1441,7 +1485,9 @@ where :math:`|\cdot|` computes the cardinality of the set (i.e., the number of
 elements in the set) and :math:`||\cdot||_0` is the :math:`\ell_0` "norm"
 (which computes the number of nonzero elements in a vector).
 
-Here is a small example of usage of this function::
+Here is a small example of usage of this function:
+
+.. sourcecode:: pycon
 
     >>> import numpy as np
     >>> from sklearn.metrics import label_ranking_loss
@@ -1514,7 +1560,9 @@ then the explained variance is estimated as follow:
 The best possible score is 1.0, lower values are worse.
 
 Here is a small example of usage of the :func:`explained_variance_score`
-function::
+function:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.metrics import explained_variance_score
     >>> y_true = [3, -0.5, 2, 7]
@@ -1548,7 +1596,9 @@ and :math:`y_i` is the corresponding true value, then the mean absolute error
 
   \text{MAE}(y, \hat{y}) = \frac{1}{n_{\text{samples}}} \sum_{i=0}^{n_{\text{samples}}-1} \left| y_i - \hat{y}_i \right|.
 
-Here is a small example of usage of the :func:`mean_absolute_error` function::
+Here is a small example of usage of the :func:`mean_absolute_error` function:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.metrics import mean_absolute_error
   >>> y_true = [3, -0.5, 2, 7]
@@ -1584,7 +1634,9 @@ and :math:`y_i` is the corresponding true value, then the mean squared error
   \text{MSE}(y, \hat{y}) = \frac{1}{n_\text{samples}} \sum_{i=0}^{n_\text{samples} - 1} (y_i - \hat{y}_i)^2.
 
 Here is a small example of usage of the :func:`mean_squared_error`
-function::
+function:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.metrics import mean_squared_error
   >>> y_true = [3, -0.5, 2, 7]
@@ -1627,7 +1679,9 @@ metric penalizes an under-predicted estimate greater than an over-predicted
 estimate.
 
 Here is a small example of usage of the :func:`mean_squared_log_error`
-function::
+function:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.metrics import mean_squared_log_error
   >>> y_true = [3, 5, 2.5, 7]
@@ -1659,7 +1713,9 @@ and :math:`y_i` is the corresponding true value, then the median absolute error
 The :func:`median_absolute_error` does not support multioutput.
 
 Here is a small example of usage of the :func:`median_absolute_error`
-function::
+function:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.metrics import median_absolute_error
   >>> y_true = [3, -0.5, 2, 7]
@@ -1690,7 +1746,9 @@ over :math:`n_{\text{samples}}` is defined as
 
 where :math:`\bar{y} =  \frac{1}{n_{\text{samples}}} \sum_{i=0}^{n_{\text{samples}} - 1} y_i`.
 
-Here is a small example of usage of the :func:`r2_score` function::
+Here is a small example of usage of the :func:`r2_score` function:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.metrics import r2_score
   >>> y_true = [3, -0.5, 2, 7]
@@ -1760,7 +1818,9 @@ Note that with all these strategies, the ``predict`` method completely ignores
 the input data!
 
 To illustrate :class:`DummyClassifier`, first let's create an imbalanced
-dataset::
+dataset:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.datasets import load_iris
   >>> from sklearn.model_selection import train_test_split
@@ -1769,7 +1829,9 @@ dataset::
   >>> y[y != 1] = -1
   >>> X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
 
-Next, let's compare the accuracy of ``SVC`` and ``most_frequent``::
+Next, let's compare the accuracy of ``SVC`` and ``most_frequent``:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.dummy import DummyClassifier
   >>> from sklearn.svm import SVC
@@ -1783,7 +1845,9 @@ Next, let's compare the accuracy of ``SVC`` and ``most_frequent``::
   0.57...
 
 We see that ``SVC`` doesn't do much better than a dummy classifier. Now, let's
-change the kernel::
+change the kernel:
+
+.. sourcecode:: pycon
 
   >>> clf = SVC(gamma='scale', kernel='rbf', C=1).fit(X_train, y_train)
   >>> clf.score(X_test, y_test)  # doctest: +ELLIPSIS

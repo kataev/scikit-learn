@@ -65,7 +65,9 @@ number generator object.
     ``RandomState`` object.
   - If ``random_state`` is a ``RandomState`` object, then it is passed through.
 
-For example::
+For example:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.utils import check_random_state
     >>> random_state = 0
@@ -226,7 +228,9 @@ Hash Functions
   ``MurmurHash3_x86_32`` C++ non cryptographic hash function. This hash
   function is suitable for implementing lookup tables, Bloom filters,
   Count Min Sketch, feature hashing and implicitly defined sparse
-  random projections::
+  random projections:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.utils import murmurhash3_32
     >>> murmurhash3_32("some feature", seed=0) == -384616559

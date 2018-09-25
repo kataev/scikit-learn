@@ -30,7 +30,9 @@ algorithms. The simplest clustering algorithm is
     :align: right
 
 
-::
+:
+
+.. sourcecode:: pycon
 
     >>> from sklearn import cluster, datasets
     >>> iris = datasets.load_iris()
@@ -107,7 +109,9 @@ algorithms. The simplest clustering algorithm is
     of choosing a small number of exemplars to compress the information.
     The problem is sometimes known as
     `vector quantization <https://en.wikipedia.org/wiki/Vector_quantization>`_.
-    For instance, this can be used to posterize an image::
+    For instance, this can be used to posterize an image:
+
+.. sourcecode:: pycon
 
         >>> import scipy as sp
         >>> try:
@@ -205,7 +209,9 @@ transposed data.
     :align: right
     :scale: 57
 
-::
+:
+
+.. sourcecode:: pycon
 
    >>> digits = datasets.load_digits()
    >>> images = digits.images
@@ -264,7 +270,9 @@ data by projecting on a principal subspace.
 
 .. np.random.seed(0)
 
-::
+:
+
+.. sourcecode:: pycon
 
     >>> # Create a signal with only 2 useful dimensions
     >>> x1 = np.random.normal(size=100)
@@ -302,7 +310,9 @@ a maximum amount of independent information. It is able to recover
 
 .. np.random.seed(0)
 
-::
+:
+
+.. sourcecode:: pycon
 
     >>> # Generate sample data
     >>> import numpy as np

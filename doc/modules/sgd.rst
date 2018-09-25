@@ -54,7 +54,9 @@ penalties for classification.
 As other classifiers, SGD has to be fitted with two arrays: an array X
 of size [n_samples, n_features] holding the training samples, and an
 array Y of size [n_samples] holding the target values (class labels)
-for the training samples::
+for the training samples:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.linear_model import SGDClassifier
     >>> X = [[0., 0.], [1., 1.]]
@@ -69,18 +71,24 @@ for the training samples::
                validation_fraction=0.1, verbose=0, warm_start=False)
 
 
-After being fitted, the model can then be used to predict new values::
+After being fitted, the model can then be used to predict new values:
+
+.. sourcecode:: pycon
 
     >>> clf.predict([[2., 2.]])
     array([1])
 
 SGD fits a linear model to the training data. The member ``coef_`` holds
-the model parameters::
+the model parameters:
+
+.. sourcecode:: pycon
 
     >>> clf.coef_                                         # doctest: +ELLIPSIS
     array([[9.9..., 9.9...]])
 
-Member ``intercept_`` holds the intercept (aka offset or bias)::
+Member ``intercept_`` holds the intercept (aka offset or bias):
+
+.. sourcecode:: pycon
 
     >>> clf.intercept_                                    # doctest: +ELLIPSIS
     array([-9.9...])
@@ -88,7 +96,9 @@ Member ``intercept_`` holds the intercept (aka offset or bias)::
 Whether or not the model should use an intercept, i.e. a biased
 hyperplane, is controlled by the parameter ``fit_intercept``.
 
-To get the signed distance to the hyperplane use :meth:`SGDClassifier.decision_function`::
+To get the signed distance to the hyperplane use :meth:`SGDClassifier.decision_function`:
+
+.. sourcecode:: pycon
 
     >>> clf.decision_function([[2., 2.]])                 # doctest: +ELLIPSIS
     array([29.6...])
@@ -108,7 +118,9 @@ is used.
 
 Using ``loss="log"`` or ``loss="modified_huber"`` enables the
 ``predict_proba`` method, which gives a vector of probability estimates
-:math:`P(y|x)` per sample :math:`x`::
+:math:`P(y|x)` per sample :math:`x`:
+
+.. sourcecode:: pycon
 
     >>> clf = SGDClassifier(loss="log", max_iter=5).fit(X, y)
     >>> clf.predict_proba([[1., 1.]])                      # doctest: +ELLIPSIS

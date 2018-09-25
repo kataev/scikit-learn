@@ -69,8 +69,9 @@ assumed to be linear. It also lacks some of the members of
 As other classifiers, :class:`SVC`, :class:`NuSVC` and
 :class:`LinearSVC` take as input two arrays: an array X of size ``[n_samples,
 n_features]`` holding the training samples, and an array y of class labels
-(strings or integers), size ``[n_samples]``::
+(strings or integers), size ``[n_samples]``:
 
+.. sourcecode:: pycon
 
     >>> from sklearn import svm
     >>> X = [[0, 0], [1, 1]]
@@ -82,7 +83,9 @@ n_features]`` holding the training samples, and an array y of class labels
         max_iter=-1, probability=False, random_state=None, shrinking=True,
         tol=0.001, verbose=False)
 
-After being fitted, the model can then be used to predict new values::
+After being fitted, the model can then be used to predict new values:
+
+.. sourcecode:: pycon
 
     >>> clf.predict([[2., 2.]])
     array([1])
@@ -90,7 +93,9 @@ After being fitted, the model can then be used to predict new values::
 SVMs decision function depends on some subset of the training data,
 called the support vectors. Some properties of these support vectors
 can be found in members ``support_vectors_``, ``support_`` and
-``n_support``::
+``n_support``:
+
+.. sourcecode:: pycon
 
     >>> # get support vectors
     >>> clf.support_vectors_
@@ -115,7 +120,9 @@ classifiers are constructed and each one trains data from two classes.
 To provide a consistent interface with other classifiers, the
 ``decision_function_shape`` option allows to aggregate the results of the
 "one-against-one" classifiers to a decision function of shape ``(n_samples,
-n_classes)``::
+n_classes)``:
+
+.. sourcecode:: pycon
 
     >>> X = [[0], [1], [2], [3]]
     >>> Y = [0, 1, 2, 3]
@@ -135,7 +142,9 @@ n_classes)``::
 
 On the other hand, :class:`LinearSVC` implements "one-vs-the-rest"
 multi-class strategy, thus training n_class models. If there are only
-two classes, only one model is trained::
+two classes, only one model is trained:
+
+.. sourcecode:: pycon
 
     >>> lin_clf = svm.LinearSVC()
     >>> lin_clf.fit(X, Y) # doctest: +NORMALIZE_WHITESPACE
@@ -312,7 +321,9 @@ formulation than :class:`SVR` and :class:`LinearSVR`. See
 
 As with classification classes, the fit method will take as
 argument vectors X, y, only that in this case y is expected to have
-floating point values instead of integer values::
+floating point values instead of integer values:
+
+.. sourcecode:: pycon
 
     >>> from sklearn import svm
     >>> X = [[0, 0], [2, 2]]
@@ -464,7 +475,9 @@ The *kernel function* can be any of the following:
   * sigmoid (:math:`\tanh(\gamma \langle x,x'\rangle + r)`),
     where :math:`r` is specified by ``coef0``.
 
-Different kernels are specified by keyword kernel at initialization::
+Different kernels are specified by keyword kernel at initialization:
+
+.. sourcecode:: pycon
 
     >>> linear_svc = svm.SVC(kernel='linear')
     >>> linear_svc.kernel
@@ -502,7 +515,9 @@ Your kernel must take as arguments two matrices of shape
 and return a kernel matrix of shape ``(n_samples_1, n_samples_2)``.
 
 The following code defines a linear kernel and creates a classifier
-instance that will use that kernel::
+instance that will use that kernel:
+
+.. sourcecode:: pycon
 
     >>> import numpy as np
     >>> from sklearn import svm

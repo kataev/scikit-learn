@@ -66,7 +66,9 @@ hyperparameter on the training score and the validation score to find out
 whether the estimator is overfitting or underfitting for some hyperparameter
 values.
 
-The function :func:`validation_curve` can help in this case::
+The function :func:`validation_curve` can help in this case:
+
+.. sourcecode:: pycon
 
   >>> import numpy as np
   >>> from sklearn.model_selection import validation_curve
@@ -139,7 +141,9 @@ the SVM could benefit from more training examples.
 We can use the function :func:`learning_curve` to generate the values
 that are required to plot such a learning curve (number of samples
 that have been used, the average scores on the training sets and the
-average scores on the validation sets)::
+average scores on the validation sets):
+
+.. sourcecode:: pycon
 
   >>> from sklearn.model_selection import learning_curve
   >>> from sklearn.svm import SVC

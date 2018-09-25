@@ -24,7 +24,9 @@ encodings.
 
 The following snippet demonstrates how to replace missing values,
 encoded as ``np.nan``, using the mean value of the columns (axis 0)
-that contain the missing values::
+that contain the missing values:
+
+.. sourcecode:: pycon
 
     >>> import numpy as np
     >>> from sklearn.impute import SimpleImputer
@@ -37,7 +39,9 @@ that contain the missing values::
      [6.          3.666...]
      [7.          6.        ]]
 
-The :class:`SimpleImputer` class also supports sparse matrices::
+The :class:`SimpleImputer` class also supports sparse matrices:
+
+.. sourcecode:: pycon
 
     >>> import scipy.sparse as sp
     >>> X = sp.csc_matrix([[1, 2], [0, -1], [8, 4]])
@@ -56,7 +60,9 @@ by 0 must be used with dense input.
 
 The :class:`SimpleImputer` class also supports categorical data represented as
 string values or pandas categoricals when using the ``'most_frequent'`` or
-``'constant'`` strategy::
+``'constant'`` strategy:
+
+.. sourcecode:: pycon
 
     >>> import pandas as pd
     >>> df = pd.DataFrame([["a", "x"],
@@ -89,7 +95,9 @@ missing can be informative.
 ``NaN`` is usually used as the placeholder for missing values. However, it
 enforces the data type to be float. The parameter ``missing_values`` allows to
 specify other placeholder such as integer. In the following example, we will
-use ``-1`` as missing values::
+use ``-1`` as missing values:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.impute import MissingIndicator
   >>> X = np.array([[-1, -1, 1, 3],
@@ -104,13 +112,18 @@ use ``-1`` as missing values::
 
 The ``features`` parameter is used to choose the features for which the mask is
 constructed. By default, it is ``'missing-only'`` which returns the imputer
-mask of the features containing missing values at ``fit`` time::
+mask of the features containing missing values at ``fit`` time:
+
+.. sourcecode:: pycon
 
   >>> indicator.features_
   array([0, 1, 3])
 
 The ``features`` parameter can be set to ``'all'`` to returned all features
-whether or not they contain missing values::
+whether or not they contain missing values:
+
+.. sourcecode:: pycon
+
     
   >>> indicator = MissingIndicator(missing_values=-1, features="all")
   >>> mask_all = indicator.fit_transform(X)

@@ -40,7 +40,9 @@ solves a problem of the form:
 
 :class:`LinearRegression` will take in its ``fit`` method arrays X, y
 and will store the coefficients :math:`w` of the linear model in its
-``coef_`` member::
+``coef_`` member:
+
+.. sourcecode:: pycon
 
     >>> from sklearn import linear_model
     >>> reg = linear_model.LinearRegression()
@@ -100,7 +102,9 @@ of shrinkage and thus the coefficients become more robust to collinearity.
 
 As with other linear models, :class:`Ridge` will take in its ``fit`` method
 arrays X, y and will store the coefficients :math:`w` of the linear model in
-its ``coef_`` member::
+its ``coef_`` member:
+
+.. sourcecode:: pycon
 
     >>> from sklearn import linear_model
     >>> reg = linear_model.Ridge (alpha = .5)
@@ -137,7 +141,9 @@ Setting the regularization parameter: generalized Cross-Validation
 :class:`RidgeCV` implements ridge regression with built-in
 cross-validation of the alpha parameter.  The object works in the same way
 as GridSearchCV except that it defaults to Generalized Cross-Validation
-(GCV), an efficient form of leave-one-out cross-validation::
+(GCV), an efficient form of leave-one-out cross-validation:
+
+.. sourcecode:: pycon
 
     >>> from sklearn import linear_model
     >>> reg = linear_model.RidgeCV(alphas=[0.1, 1.0, 10.0], cv=3)
@@ -181,7 +187,9 @@ the parameter vector.
 
 The implementation in the class :class:`Lasso` uses coordinate descent as
 the algorithm to fit the coefficients. See :ref:`least_angle_regression`
-for another implementation::
+for another implementation:
+
+.. sourcecode:: pycon
 
     >>> from sklearn import linear_model
     >>> reg = linear_model.Lasso(alpha = 0.1)
@@ -472,7 +480,9 @@ function of the norm of its coefficients.
    :align: center
    :scale: 50%
 
-::
+:
+
+.. sourcecode:: pycon
 
    >>> from sklearn import linear_model
    >>> reg = linear_model.LassoLars(alpha=.1)
@@ -633,7 +643,9 @@ By default :math:`\alpha_1 = \alpha_2 =  \lambda_1 = \lambda_2 = 10^{-6}`.
    :scale: 50%
 
 
-Bayesian Ridge Regression is used for regression::
+Bayesian Ridge Regression is used for regression:
+
+.. sourcecode:: pycon
 
     >>> from sklearn import linear_model
     >>> X = [[0., 0.], [1., 1.], [2., 2.], [3., 3.]]
@@ -644,13 +656,17 @@ Bayesian Ridge Regression is used for regression::
            fit_intercept=True, lambda_1=1e-06, lambda_2=1e-06, n_iter=300,
            normalize=False, tol=0.001, verbose=False)
 
-After being fitted, the model can then be used to predict new values::
+After being fitted, the model can then be used to predict new values:
+
+.. sourcecode:: pycon
 
     >>> reg.predict ([[1, 0.]])
     array([0.50000013])
 
 
-The weights :math:`w` of the model can be access::
+The weights :math:`w` of the model can be access:
+
+.. sourcecode:: pycon
 
     >>> reg.coef_
     array([0.49999993, 0.49999993])
@@ -1242,7 +1258,9 @@ polynomial features of varying degrees:
 
 This figure is created using the :class:`PolynomialFeatures` preprocessor.
 This preprocessor transforms an input data matrix into a new data matrix
-of a given degree.  It can be used as follows::
+of a given degree.  It can be used as follows:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.preprocessing import PolynomialFeatures
     >>> import numpy as np
@@ -1263,7 +1281,9 @@ any linear model.
 
 This sort of preprocessing can be streamlined with the
 :ref:`Pipeline <pipeline>` tools. A single object representing a simple
-polynomial regression can be created and used as follows::
+polynomial regression can be created and used as follows:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.preprocessing import PolynomialFeatures
     >>> from sklearn.linear_model import LinearRegression
@@ -1290,7 +1310,9 @@ These can be gotten from :class:`PolynomialFeatures` with the setting
 For example, when dealing with boolean features,
 :math:`x_i^n = x_i` for all :math:`n` and is therefore useless;
 but :math:`x_i x_j` represents the conjunction of two booleans.
-This way, we can solve the XOR problem with a linear classifier::
+This way, we can solve the XOR problem with a linear classifier:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.linear_model import Perceptron
     >>> from sklearn.preprocessing import PolynomialFeatures
@@ -1308,7 +1330,9 @@ This way, we can solve the XOR problem with a linear classifier::
     >>> clf = Perceptron(fit_intercept=False, max_iter=10, tol=None,
     ...                  shuffle=False).fit(X, y)
 
-And the classifier "predictions" are perfect::
+And the classifier "predictions" are perfect:
+
+.. sourcecode:: pycon
 
     >>> clf.predict(X)
     array([0, 1, 1, 0])

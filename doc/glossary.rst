@@ -265,7 +265,9 @@ General Concepts
           includes alternating between a probabilistic and a non-probabilistic
           predictor in the final step of the pipeline.  In the following, we
           can only determine if ``clf`` is probabilistic after fitting it on
-          some data::
+          some data:
+
+.. sourcecode:: pycon
 
               >>> from sklearn.model_selection import GridSearchCV
               >>> from sklearn.linear_model import SGDClassifier

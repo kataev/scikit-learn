@@ -218,7 +218,9 @@ checking for finiteness by setting the environment variable
 ``SKLEARN_ASSUME_FINITE`` to a non-empty string before importing
 scikit-learn, or configure it in Python with :func:`sklearn.set_config`.
 For more control than these global settings, a :func:`config_context`
-allows you to set this configuration within a specified context::
+allows you to set this configuration within a specified context:
+
+.. sourcecode:: pycon
 
   >>> import sklearn
   >>> with sklearn.config_context(assume_finite=True):
@@ -459,7 +461,9 @@ system memory.  Where computations can be performed in fixed-memory chunks, we
 attempt to do so, and allow the user to hint at the maximum size of this
 working memory (defaulting to 1GB) using :func:`sklearn.set_config` or
 :func:`config_context`.  The following suggests to limit temporary working
-memory to 128 MiB::
+memory to 128 MiB:
+
+.. sourcecode:: pycon
 
   >>> import sklearn
   >>> with sklearn.config_context(working_memory=128):

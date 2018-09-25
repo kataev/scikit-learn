@@ -93,7 +93,9 @@ classification on a dataset.
 As with other classifiers, :class:`DecisionTreeClassifier` takes as input two arrays:
 an array X, sparse or dense, of size ``[n_samples, n_features]``  holding the
 training samples, and an array Y of integer values, size ``[n_samples]``,
-holding the class labels for the training samples::
+holding the class labels for the training samples:
+
+.. sourcecode:: pycon
 
     >>> from sklearn import tree
     >>> X = [[0, 0], [1, 1]]
@@ -101,13 +103,17 @@ holding the class labels for the training samples::
     >>> clf = tree.DecisionTreeClassifier()
     >>> clf = clf.fit(X, Y)
 
-After being fitted, the model can then be used to predict the class of samples::
+After being fitted, the model can then be used to predict the class of samples:
+
+.. sourcecode:: pycon
 
     >>> clf.predict([[2., 2.]])
     array([1])
 
 Alternatively, the probability of each class can be predicted, which is the
-fraction of training samples of the same class in a leaf::
+fraction of training samples of the same class in a leaf:
+
+.. sourcecode:: pycon
 
     >>> clf.predict_proba([[2., 2.]])
     array([[0., 1.]])
@@ -116,7 +122,9 @@ fraction of training samples of the same class in a leaf::
 labels are [-1, 1]) classification and multiclass (where the labels are
 [0, ..., K-1]) classification.
 
-Using the Iris dataset, we can construct a tree as follows::
+Using the Iris dataset, we can construct a tree as follows:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.datasets import load_iris
     >>> from sklearn import tree
@@ -135,8 +143,9 @@ Alternatively binaries for graphviz can be downloaded from the graphviz project 
 and the Python wrapper installed from pypi with `pip install graphviz`. 
 
 Below is an example graphviz export of the above tree trained on the entire
-iris dataset; the results are saved in an output file `iris.pdf`::
+iris dataset; the results are saved in an output file `iris.pdf`:
 
+.. sourcecode:: pycon
 
     >>> import graphviz # doctest: +SKIP
     >>> dot_data = tree.export_graphviz(clf, out_file=None) # doctest: +SKIP
@@ -146,7 +155,9 @@ iris dataset; the results are saved in an output file `iris.pdf`::
 The :func:`export_graphviz` exporter also supports a variety of aesthetic
 options, including coloring nodes by their class (or value for regression) and
 using explicit variable and class names if desired. Jupyter notebooks also
-render these plots inline automatically::
+render these plots inline automatically:
+
+.. sourcecode:: pycon
 
     >>> dot_data = tree.export_graphviz(clf, out_file=None, # doctest: +SKIP
                              feature_names=iris.feature_names,  # doctest: +SKIP
@@ -191,7 +202,9 @@ Decision trees can also be applied to regression problems, using the
 
 As in the classification setting, the fit method will take as argument arrays X
 and y, only that in this case y is expected to have floating point values
-instead of integer values::
+instead of integer values:
+
+.. sourcecode:: pycon
 
     >>> from sklearn import tree
     >>> X = [[0, 0], [2, 2]]

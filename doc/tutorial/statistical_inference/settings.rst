@@ -14,7 +14,9 @@ these arrays is the **samples** axis, while the second is the
 
 .. topic:: A simple example shipped with scikit-learn: iris dataset
 
-    ::
+    :
+
+.. sourcecode:: pycon
 
         >>> from sklearn import datasets
         >>> iris = datasets.load_iris()
@@ -37,7 +39,9 @@ needs to be preprocessed in order to be used by scikit-learn.
         :scale: 60
 
     The digits dataset is made of 1797 8x8 images of hand-written
-    digits ::
+    digits :
+
+.. sourcecode:: pycon
 
         >>> digits = datasets.load_digits()
         >>> digits.images.shape
@@ -47,7 +51,9 @@ needs to be preprocessed in order to be used by scikit-learn.
         <matplotlib.image.AxesImage object at ...>
 
     To use this dataset with scikit-learn, we transform each 8x8 image into a
-    feature vector of length 64 ::
+    feature vector of length 64 :
+
+.. sourcecode:: pycon
 
         >>> data = digits.images.reshape((digits.images.shape[0], -1))
 
@@ -77,7 +83,9 @@ All estimator objects expose a ``fit`` method that takes a dataset
     >>> estimator.fit(data)
 
 **Estimator parameters**: All the parameters of an estimator can be set
-when it is instantiated or by modifying the corresponding attribute::
+when it is instantiated or by modifying the corresponding attribute:
+
+.. sourcecode:: pycon
 
     >>> estimator = Estimator(param1=1, param2=2)
     >>> estimator.param1
@@ -86,6 +94,8 @@ when it is instantiated or by modifying the corresponding attribute::
 **Estimated parameters**: When data is fitted with an estimator,
 parameters are estimated from the data at hand. All the estimated
 parameters are attributes of the estimator object ending by an
-underscore::
+underscore:
+
+.. sourcecode:: pycon
 
     >>> estimator.estimated_param_ #doctest: +SKIP

@@ -31,7 +31,9 @@ and the variance of such variables is given by
 
 .. math:: \mathrm{Var}[X] = p(1 - p)
 
-so we can select using the threshold ``.8 * (1 - .8)``::
+so we can select using the threshold ``.8 * (1 - .8)``:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.feature_selection import VarianceThreshold
   >>> X = [[0, 0, 1], [0, 1, 0], [1, 0, 0], [0, 1, 1], [0, 1, 0], [0, 1, 1]]
@@ -177,7 +179,9 @@ they can be used along with :class:`feature_selection.SelectFromModel`
 to select the non-zero coefficients. In particular, sparse estimators useful
 for this purpose are the :class:`linear_model.Lasso` for regression, and
 of :class:`linear_model.LogisticRegression` and :class:`svm.LinearSVC`
-for classification::
+for classification:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.svm import LinearSVC
   >>> from sklearn.datasets import load_iris
@@ -236,7 +240,9 @@ Tree-based estimators (see the :mod:`sklearn.tree` module and forest
 of trees in the :mod:`sklearn.ensemble` module) can be used to compute
 feature importances, which in turn can be used to discard irrelevant
 features (when coupled with the :class:`sklearn.feature_selection.SelectFromModel`
-meta-transformer)::
+meta-transformer):
+
+.. sourcecode:: pycon
 
   >>> from sklearn.ensemble import ExtraTreesClassifier
   >>> from sklearn.datasets import load_iris

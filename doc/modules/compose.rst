@@ -47,7 +47,9 @@ Usage
 
 The :class:`Pipeline` is built using a list of ``(key, value)`` pairs, where
 the ``key`` is a string containing the name you want to give this step and ``value``
-is an estimator object::
+is an estimator object:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.pipeline import Pipeline
     >>> from sklearn.svm import SVC
@@ -62,7 +64,9 @@ is an estimator object::
 The utility function :func:`make_pipeline` is a shorthand
 for constructing pipelines;
 it takes a variable number of estimators and returns a pipeline,
-filling in the names automatically::
+filling in the names automatically:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.pipeline import make_pipeline
     >>> from sklearn.naive_bayes import MultinomialNB
@@ -74,32 +78,42 @@ filling in the names automatically::
                                                     class_prior=None,
                                                     fit_prior=True))])
 
-The estimators of a pipeline are stored as a list in the ``steps`` attribute::
+The estimators of a pipeline are stored as a list in the ``steps`` attribute:
+
+.. sourcecode:: pycon
 
     >>> pipe.steps[0]
     ('reduce_dim', PCA(copy=True, iterated_power='auto', n_components=None, random_state=None,
       svd_solver='auto', tol=0.0, whiten=False))
 
-and as a ``dict`` in ``named_steps``::
+and as a ``dict`` in ``named_steps``:
+
+.. sourcecode:: pycon
 
     >>> pipe.named_steps['reduce_dim']
     PCA(copy=True, iterated_power='auto', n_components=None, random_state=None,
       svd_solver='auto', tol=0.0, whiten=False)
 
 Parameters of the estimators in the pipeline can be accessed using the
-``<estimator>__<parameter>`` syntax::
+``<estimator>__<parameter>`` syntax:
+
+.. sourcecode:: pycon
 
     >>> pipe.set_params(clf__C=10) # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
     Pipeline(memory=None,
              steps=[('reduce_dim', PCA(copy=True, iterated_power='auto',...)),
                     ('clf', SVC(C=10, cache_size=200, class_weight=None,...))])
 
-Attributes of named_steps map to keys, enabling tab completion in interactive environments::
+Attributes of named_steps map to keys, enabling tab completion in interactive environments:
+
+.. sourcecode:: pycon
 
     >>> pipe.named_steps.reduce_dim is pipe.named_steps['reduce_dim']
     True
 
-This is particularly important for doing grid searches::
+This is particularly important for doing grid searches:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.model_selection import GridSearchCV
     >>> param_grid = dict(reduce_dim__n_components=[2, 5, 10],
@@ -107,7 +121,9 @@ This is particularly important for doing grid searches::
     >>> grid_search = GridSearchCV(pipe, param_grid=param_grid)
 
 Individual steps may also be replaced as parameters, and non-final steps may be
-ignored by setting them to ``None``::
+ignored by setting them to ``None``:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.linear_model import LogisticRegression
     >>> param_grid = dict(reduce_dim=[None, PCA(5), PCA(10)],
@@ -157,7 +173,9 @@ each configuration.
 The parameter ``memory`` is needed in order to cache the transformers.
 ``memory`` can be either a string containing the directory where to cache the
 transformers or a `joblib.Memory <https://pythonhosted.org/joblib/memory.html>`_
-object::
+object:
+
+.. sourcecode:: pycon
 
     >>> from tempfile import mkdtemp
     >>> from shutil import rmtree
@@ -177,7 +195,9 @@ object::
 .. warning:: **Side effect of caching transformers**
 
    Using a :class:`Pipeline` without cache enabled, it is possible to
-   inspect the original instance such as::
+   inspect the original instance such as:
+
+.. sourcecode:: pycon
 
      >>> from sklearn.datasets import load_digits
      >>> digits = load_digits()
@@ -199,7 +219,9 @@ object::
    will raise an ``AttributeError`` since ``pca2`` will be an unfitted
    transformer.
    Instead, use the attribute ``named_steps`` to inspect estimators within
-   the pipeline::
+   the pipeline:
+
+.. sourcecode:: pycon
 
      >>> cachedir = mkdtemp()
      >>> pca2 = PCA()
@@ -229,7 +251,9 @@ Transforming target in regression
 a regression model. The predictions are mapped back to the original space via
 an inverse transform. It takes as an argument the regressor that will be used
 for prediction, and the transformer that will be applied to the target
-variable::
+variable:
+
+.. sourcecode:: pycon
 
   >>> import numpy as np
   >>> from sklearn.datasets import load_boston
@@ -254,7 +278,9 @@ variable::
   R2 score: 0.64
 
 For simple transformations, instead of a Transformer object, a pair of
-functions can be passed, defining the transformation and its inverse mapping::
+functions can be passed, defining the transformation and its inverse mapping:
+
+.. sourcecode:: pycon
 
   >>> from __future__ import division
   >>> def func(x):
@@ -262,7 +288,9 @@ functions can be passed, defining the transformation and its inverse mapping::
   >>> def inverse_func(x):
   ...     return np.exp(x)
 
-Subsequently, the object is created as::
+Subsequently, the object is created as:
+
+.. sourcecode:: pycon
 
   >>> regr = TransformedTargetRegressor(regressor=regressor,
   ...                                   func=func,
@@ -274,7 +302,9 @@ Subsequently, the object is created as::
 
 By default, the provided functions are checked at each fit to be the inverse of
 each other. However, it is possible to bypass this checking by setting
-``check_inverse`` to ``False``::
+``check_inverse`` to ``False``:
+
+.. sourcecode:: pycon
 
   >>> def inverse_func(x):
   ...     return x
@@ -334,7 +364,9 @@ Usage
 A :class:`FeatureUnion` is built using a list of ``(key, value)`` pairs,
 where the ``key`` is the name you want to give to a given transformation
 (an arbitrary string; it only serves as an identifier)
-and ``value`` is an estimator object::
+and ``value`` is an estimator object:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.pipeline import FeatureUnion
     >>> from sklearn.decomposition import PCA
@@ -353,7 +385,9 @@ Like pipelines, feature unions have a shorthand constructor called
 
 
 Like ``Pipeline``, individual steps may be replaced using ``set_params``,
-and ignored by setting to ``'drop'``::
+and ignored by setting to ``'drop'``:
+
+.. sourcecode:: pycon
 
     >>> combined.set_params(kernel_pca='drop')
     ... # doctest: +NORMALIZE_WHITESPACE, +ELLIPSIS
@@ -398,7 +432,9 @@ arrays, sparse matrices, and
 `pandas DataFrames <http://pandas.pydata.org/pandas-docs/stable/>`__.
 
 To each column, a different transformation can be applied, such as
-preprocessing or a specific feature extraction method::
+preprocessing or a specific feature extraction method:
+
+.. sourcecode:: pycon
 
   >>> import pandas as pd
   >>> X = pd.DataFrame(
@@ -413,7 +449,9 @@ variable, but apply a :class:`feature_extraction.text.CountVectorizer
 <sklearn.feature_extraction.text.CountVectorizer>` to the ``'title'`` column.
 As we might use multiple feature extraction methods on the same column, we give
 each transformer a unique name, say ``'city_category'`` and ``'title_bow'``.
-By default, the remaining rating columns are ignored (``remainder='drop'``)::
+By default, the remaining rating columns are ignored (``remainder='drop'``):
+
+.. sourcecode:: pycon
 
   >>> from sklearn.compose import ColumnTransformer
   >>> from sklearn.feature_extraction.text import CountVectorizer
@@ -455,7 +493,9 @@ interpreted as the positional columns.
 
 We can keep the remaining rating columns by setting
 ``remainder='passthrough'``. The values are appended to the end of the
-transformation::
+transformation:
+
+.. sourcecode:: pycon
 
   >>> column_trans = ColumnTransformer(
   ...     [('city_category', CountVectorizer(analyzer=lambda x: [x]), 'city'),
@@ -471,7 +511,9 @@ transformation::
 
 The ``remainder`` parameter can be set to an estimator to transform the
 remaining rating columns. The transformed values are appended to the end of
-the transformation::
+the transformation:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.preprocessing import MinMaxScaler
   >>> column_trans = ColumnTransformer(
@@ -489,7 +531,9 @@ the transformation::
 The :func:`~sklearn.compose.make_columntransformer` function is available
 to more easily create a :class:`~sklearn.compose.ColumnTransformer` object.
 Specifically, the names will be given automatically. The equivalent for the
-above example would be::
+above example would be:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.compose import make_column_transformer
   >>> column_trans = make_column_transformer(

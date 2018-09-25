@@ -17,7 +17,9 @@ purposes. The dataset is extensively described in [1]_.
     ==============     =====================
 
 :func:`sklearn.datasets.fetch_rcv1` will load the following 
-version: RCV1-v2, vectors, full sets, topics multilabels::
+version: RCV1-v2, vectors, full sets, topics multilabels:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.datasets import fetch_rcv1
     >>> rcv1 = fetch_rcv1()
@@ -30,7 +32,9 @@ The feature matrix is a scipy CSR sparse matrix, with 804414 samples and
 A nearly chronological split is proposed in [1]_: The first 23149 samples are
 the training set. The last 781265 samples are the testing set. This follows 
 the official LYRL2004 chronological split. The array has 0.16% of non zero 
-values::
+values:
+
+.. sourcecode:: pycon
 
     >>> rcv1.data.shape
     (804414, 47236)
@@ -38,14 +42,18 @@ values::
 ``target``:
 The target values are stored in a scipy CSR sparse matrix, with 804414 samples 
 and 103 categories. Each sample has a value of 1 in its categories, and 0 in 
-others. The array has 3.15% of non zero values::
+others. The array has 3.15% of non zero values:
+
+.. sourcecode:: pycon
 
     >>> rcv1.target.shape
     (804414, 103)
 
 ``sample_id``:
 Each sample can be identified by its ID, ranging (with gaps) from 2286 
-to 810596::
+to 810596:
+
+.. sourcecode:: pycon
 
     >>> rcv1.sample_id[:3]
     array([2286, 2287, 2288], dtype=uint32)
@@ -54,7 +62,9 @@ to 810596::
 The target values are the topics of each sample. Each sample belongs to at 
 least one topic, and to up to 17 topics. There are 103 topics, each 
 represented by a string. Their corpus frequencies span five orders of 
-magnitude, from 5 occurrences for 'GMIL', to 381327 for 'CCAT'::
+magnitude, from 5 occurrences for 'GMIL', to 381327 for 'CCAT':
+
+.. sourcecode:: pycon
 
     >>> rcv1.target_names[:3].tolist()  # doctest: +SKIP
     ['E11', 'ECAT', 'M11']

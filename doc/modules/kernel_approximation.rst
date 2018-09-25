@@ -51,7 +51,9 @@ Radial Basis Function Kernel
 The :class:`RBFSampler` constructs an approximate mapping for the radial basis
 function kernel, also known as *Random Kitchen Sinks* [RR2007]_. This
 transformation can be used to explicitly model a kernel map, prior to applying
-a linear algorithm, for example a linear SVM::
+a linear algorithm, for example a linear SVM:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.kernel_approximation import RBFSampler
     >>> from sklearn.linear_model import SGDClassifier

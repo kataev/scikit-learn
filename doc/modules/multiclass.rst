@@ -175,7 +175,9 @@ default choice.
 Multiclass learning
 -------------------
 
-Below is an example of multiclass learning using OvR::
+Below is an example of multiclass learning using OvR:
+
+.. sourcecode:: pycon
 
   >>> from sklearn import datasets
   >>> from sklearn.multiclass import OneVsRestClassifier
@@ -232,7 +234,9 @@ dataset is used ``n_classes`` times.
 Multiclass learning
 -------------------
 
-Below is an example of multiclass learning using OvO::
+Below is an example of multiclass learning using OvO:
+
+.. sourcecode:: pycon
 
   >>> from sklearn import datasets
   >>> from sklearn.multiclass import OneVsOneClassifier
@@ -295,7 +299,9 @@ effect to bagging.
 Multiclass learning
 -------------------
 
-Below is an example of multiclass learning using Output-Codes::
+Below is an example of multiclass learning using Output-Codes:
+
+.. sourcecode:: pycon
 
   >>> from sklearn import datasets
   >>> from sklearn.multiclass import OutputCodeClassifier

@@ -4398,7 +4398,10 @@ def traceParseAction(f):
 
         wds = OneOrMore(wd).setParseAction(remove_duplicate_chars)
         print(wds.parseString("slkdjs sld sldd sdlf sdljf"))
-    prints::
+    prints:
+
+.. sourcecode:: pycon
+
         >>entering remove_duplicate_chars(line: 'slkdjs sld sldd sdlf sdljf', 0, (['slkdjs', 'sld', 'sldd', 'sdlf', 'sdljf'], {}))
         <<leaving remove_duplicate_chars (ret: 'dfjkls')
         ['dfjkls']

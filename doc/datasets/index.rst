@@ -325,13 +325,17 @@ takes the form ``<label> <feature-id>:<feature-value>
 <feature-id>:<feature-value> ...``. This format is especially suitable for sparse datasets.
 In this module, scipy sparse CSR matrices are used for ``X`` and numpy arrays are used for ``y``.
 
-You may load a dataset like as follows::
+You may load a dataset like as follows:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.datasets import load_svmlight_file
   >>> X_train, y_train = load_svmlight_file("/path/to/train_dataset.txt")
   ...                                                         # doctest: +SKIP
 
-You may also load two (or more) datasets at once::
+You may also load two (or more) datasets at once:
+
+.. sourcecode:: pycon
 
   >>> X_train, y_train, X_test, y_test = load_svmlight_files(
   ...     ("/path/to/train_dataset.txt", "/path/to/test_dataset.txt"))
@@ -339,7 +343,9 @@ You may also load two (or more) datasets at once::
 
 In this case, ``X_train`` and ``X_test`` are guaranteed to have the same number
 of features. Another way to achieve the same result is to fix the number of
-features::
+features:
+
+.. sourcecode:: pycon
 
   >>> X_test, y_test = load_svmlight_file(
   ...     "/path/to/test_dataset.txt", n_features=X_train.shape[1])
@@ -369,7 +375,9 @@ The ``sklearn.datasets`` package is able to download datasets
 from the repository using the function
 :func:`sklearn.datasets.fetch_openml`.
 
-For example, to download a dataset of gene expressions in mice brains::
+For example, to download a dataset of gene expressions in mice brains:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.datasets import fetch_openml
   >>> mice = fetch_openml(name='miceprotein', version=4)
@@ -377,7 +385,9 @@ For example, to download a dataset of gene expressions in mice brains::
 To fully specify a dataset, you need to provide a name and a version, though
 the version is optional, see :ref:`openml_versions` below.
 The dataset contains a total of 1080 examples belonging to 8 different
-classes::
+classes:
+
+.. sourcecode:: pycon
 
   >>> mice.data.shape
   (1080, 77)
@@ -387,7 +397,9 @@ classes::
   array(['c-CS-m', 'c-CS-s', 'c-SC-m', 'c-SC-s', 't-CS-m', 't-CS-s', 't-SC-m', 't-SC-s'], dtype=object)
 
 You can get more information on the dataset by looking at the ``DESCR``
-and ``details`` attributes::
+and ``details`` attributes:
+
+.. sourcecode:: pycon
 
   >>> print(mice.DESCR) # doctest: +NORMALIZE_WHITESPACE +ELLIPSIS +SKIP
   **Author**: Clara Higuera, Katheleen J. Gardiner, Krzysztof J. Cios
@@ -413,12 +425,16 @@ contains a dictionary of meta-data stored by openml, like the dataset id.
 For more details, see the `OpenML documentation
 <https://docs.openml.org/#data>`_ The ``data_id`` of the mice protein dataset
 is 40966, and you can use this (or the name) to get more information on the
-dataset on the openml website::
+dataset on the openml website:
+
+.. sourcecode:: pycon
 
   >>> mice.url
   'https://www.openml.org/d/40966'
 
-The ``data_id`` also uniquely identifies a dataset from OpenML::
+The ``data_id`` also uniquely identifies a dataset from OpenML:
+
+.. sourcecode:: pycon
 
   >>> mice = fetch_openml(data_id=40966)
   >>> mice.details # doctest: +NORMALIZE_WHITESPACE +ELLIPSIS +SKIP
@@ -447,13 +463,17 @@ the earliest version of a dataset that is still active. That means that
 ``fetch_openml(name="miceprotein")`` can yield different results at different
 times if earlier versions become inactive.
 You can see that the dataset with ``data_id`` 40966 that we fetched above is
-the version 1 of the "miceprotein" dataset::
+the version 1 of the "miceprotein" dataset:
+
+.. sourcecode:: pycon
 
   >>> mice.details['version']  #doctest: +SKIP
   '1'
 
 In fact, this dataset only has one version. The iris dataset on the other hand
-has multiple versions::
+has multiple versions:
+
+.. sourcecode:: pycon
 
   >>> iris = fetch_openml(name="iris")
   >>> iris.details['version']  #doctest: +SKIP
@@ -477,13 +497,17 @@ Specifying the dataset by the name "iris" yields the lowest version, version 1,
 with the ``data_id`` 61. To make sure you always get this exact dataset, it is
 safest to specify it by the dataset ``data_id``. The other dataset, with
 ``data_id`` 969, is version 3 (version 2 has become inactive), and contains a
-binarized version of the data::
+binarized version of the data:
+
+.. sourcecode:: pycon
 
   >>> np.unique(iris_969.target)
   array(['N', 'P'], dtype=object)
 
 You can also specify both the name and the version, which also uniquely
-identifies the dataset::
+identifies the dataset:
+
+.. sourcecode:: pycon
 
   >>> iris_version_3 = fetch_openml(name="iris", version=3)
   >>> iris_version_3.details['version']

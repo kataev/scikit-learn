@@ -531,7 +531,9 @@ def load_digits(n_class=10, return_X_y=False):
 
     Examples
     --------
-    To load the data and visualize the images::
+    To load the data and visualize the images:
+
+.. sourcecode:: pycon
 
         >>> from sklearn.datasets import load_digits
         >>> digits = load_digits()

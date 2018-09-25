@@ -112,7 +112,9 @@ prediction of the individual classifiers.
 As other classifiers, forest classifiers have to be fitted with two
 arrays: a sparse or dense array X of size ``[n_samples, n_features]`` holding the
 training samples, and an array Y of size ``[n_samples]`` holding the
-target values (class labels) for the training samples::
+target values (class labels) for the training samples:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.ensemble import RandomForestClassifier
     >>> X = [[0, 0], [1, 1]]
@@ -154,7 +156,9 @@ most discriminative thresholds, thresholds are drawn at random for each
 candidate feature and the best of these randomly-generated thresholds is
 picked as the splitting rule. This usually allows to reduce the variance
 of the model a bit more, at the expense of a slightly greater increase
-in bias::
+in bias:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.model_selection import cross_val_score
     >>> from sklearn.datasets import make_blobs
@@ -376,7 +380,9 @@ Usage
 -----
 
 The following example shows how to fit an AdaBoost classifier with 100 weak
-learners::
+learners:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.model_selection import cross_val_score
     >>> from sklearn.datasets import load_iris
@@ -462,7 +468,9 @@ Classification
 :class:`GradientBoostingClassifier` supports both binary and multi-class
 classification.
 The following example shows how to fit a gradient boosting classifier
-with 100 decision stumps as weak learners::
+with 100 decision stumps as weak learners:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.datasets import make_hastie_10_2
     >>> from sklearn.ensemble import GradientBoostingClassifier
@@ -495,7 +503,9 @@ Regression
 for regression which can be specified via the argument
 ``loss``; the default loss function for regression is least squares (``'ls'``).
 
-::
+:
+
+.. sourcecode:: pycon
 
     >>> import numpy as np
     >>> from sklearn.metrics import mean_squared_error
@@ -542,7 +552,9 @@ Both :class:`GradientBoostingRegressor` and :class:`GradientBoostingClassifier`
 support ``warm_start=True`` which allows you to add more estimators to an already
 fitted model.
 
-::
+:
+
+.. sourcecode:: pycon
 
   >>> _ = est.set_params(n_estimators=200, warm_start=True)  # set warm_start and new nr of trees
   >>> _ = est.fit(X_train, y_train) # fit additional 100 trees to est
@@ -783,7 +795,9 @@ ensembles by simply averaging the feature importance of each tree (see
 :ref:`random_forest_feature_importance` for more details).
 
 The feature importance scores of a fit gradient boosting model can be
-accessed via the ``feature_importances_`` property::
+accessed via the ``feature_importances_`` property:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.datasets import make_hastie_10_2
     >>> from sklearn.ensemble import GradientBoostingClassifier
@@ -843,7 +857,9 @@ The module :mod:`partial_dependence` provides a convenience function
 to create one-way and two-way partial dependence plots. In the below example
 we show how to create a grid of partial dependence plots: two one-way
 PDPs for the features ``0`` and ``1`` and a two-way PDP between the two
-features::
+features:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.datasets import make_hastie_10_2
     >>> from sklearn.ensemble import GradientBoostingClassifier
@@ -856,7 +872,9 @@ features::
     >>> fig, axs = plot_partial_dependence(clf, X, features) #doctest: +SKIP
 
 For multi-class models, you need to set the class label for which the
-PDPs should be created via the ``label`` argument::
+PDPs should be created via the ``label`` argument:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.datasets import load_iris
     >>> iris = load_iris()
@@ -867,7 +885,9 @@ PDPs should be created via the ``label`` argument::
 
 If you need the raw values of the partial dependence function rather
 than the plots you can use the
-:func:`~sklearn.ensemble.partial_dependence.partial_dependence` function::
+:func:`~sklearn.ensemble.partial_dependence.partial_dependence` function:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.ensemble.partial_dependence import partial_dependence
 
@@ -962,7 +982,9 @@ the class label 1 will be assigned to the sample.
 Usage
 .....
 
-The following example shows how to fit the majority rule classifier::
+The following example shows how to fit the majority rule classifier:
+
+.. sourcecode:: pycon
 
    >>> from sklearn import datasets
    >>> from sklearn.model_selection import cross_val_score
@@ -1023,7 +1045,9 @@ highest average probability.
 
 The following example illustrates how the decision regions may change
 when a soft `VotingClassifier` is used based on an linear Support
-Vector Machine, a Decision Tree, and a K-nearest neighbor classifier::
+Vector Machine, a Decision Tree, and a K-nearest neighbor classifier:
+
+.. sourcecode:: pycon
 
    >>> from sklearn import datasets
    >>> from sklearn.tree import DecisionTreeClassifier
@@ -1057,7 +1081,9 @@ Using the `VotingClassifier` with `GridSearch`
 ----------------------------------------------
 
 The `VotingClassifier` can also be used together with `GridSearch` in order
-to tune the hyperparameters of the individual estimators::
+to tune the hyperparameters of the individual estimators:
+
+.. sourcecode:: pycon
 
    >>> from sklearn.model_selection import GridSearchCV
    >>> clf1 = LogisticRegression(solver='lbfgs', multi_class='multinomial',
@@ -1076,10 +1102,14 @@ Usage
 
 In order to predict the class labels based on the predicted
 class-probabilities (scikit-learn estimators in the VotingClassifier
-must support ``predict_proba`` method)::
+must support ``predict_proba`` method):
+
+.. sourcecode:: pycon
 
    >>> eclf = VotingClassifier(estimators=[('lr', clf1), ('rf', clf2), ('gnb', clf3)], voting='soft')
 
-Optionally, weights can be provided for the individual classifiers::
+Optionally, weights can be provided for the individual classifiers:
+
+.. sourcecode:: pycon
 
    >>> eclf = VotingClassifier(estimators=[('lr', clf1), ('rf', clf2), ('gnb', clf3)], voting='soft', weights=[2,5,1])

@@ -89,12 +89,16 @@ uncompressed archive folder.
 
 In order to get faster execution times for this first example we will
 work on a partial dataset with only 4 categories out of the 20 available
-in the dataset::
+in the dataset:
+
+.. sourcecode:: pycon
 
   >>> categories = ['alt.atheism', 'soc.religion.christian',
   ...               'comp.graphics', 'sci.med']
 
-We can now load the list of files matching those categories as follows::
+We can now load the list of files matching those categories as follows:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.datasets import fetch_20newsgroups
   >>> twenty_train = fetch_20newsgroups(subset='train',
@@ -103,20 +107,26 @@ We can now load the list of files matching those categories as follows::
 The returned dataset is a ``scikit-learn`` "bunch": a simple holder
 object with fields that can be both accessed as python ``dict``
 keys or ``object`` attributes for convenience, for instance the
-``target_names`` holds the list of the requested category names::
+``target_names`` holds the list of the requested category names:
+
+.. sourcecode:: pycon
 
   >>> twenty_train.target_names
   ['alt.atheism', 'comp.graphics', 'sci.med', 'soc.religion.christian']
 
 The files themselves are loaded in memory in the ``data`` attribute. For
-reference the filenames are also available::
+reference the filenames are also available:
+
+.. sourcecode:: pycon
 
   >>> len(twenty_train.data)
   2257
   >>> len(twenty_train.filenames)
   2257
 
-Let's print the first lines of the first loaded file::
+Let's print the first lines of the first loaded file:
+
+.. sourcecode:: pycon
 
   >>> print("\n".join(twenty_train.data[0].split("\n")[:3]))
   From: sd345@city.ac.uk (Michael Collier)
@@ -134,12 +144,16 @@ individual documents.
 For speed and space efficiency reasons ``scikit-learn`` loads the
 target attribute as an array of integers that corresponds to the
 index of the category name in the ``target_names`` list. The category
-integer id of each sample is stored in the ``target`` attribute::
+integer id of each sample is stored in the ``target`` attribute:
+
+.. sourcecode:: pycon
 
   >>> twenty_train.target[:10]
   array([1, 1, 3, 3, 3, 3, 3, 2, 2, 2])
 
-It is possible to get back the category names as follows::
+It is possible to get back the category names as follows:
+
+.. sourcecode:: pycon
 
   >>> for t in twenty_train.target[:10]:
   ...     print(twenty_train.target_names[t])
@@ -206,7 +220,9 @@ Tokenizing text with ``scikit-learn``
 
 Text preprocessing, tokenizing and filtering of stopwords are all included
 in :class:`CountVectorizer`, which builds a dictionary of features and 
-transforms documents to feature vectors::
+transforms documents to feature vectors:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.feature_extraction.text import CountVectorizer
   >>> count_vect = CountVectorizer()
@@ -216,7 +232,9 @@ transforms documents to feature vectors::
 
 :class:`CountVectorizer` supports counts of N-grams of words or consecutive 
 characters. Once fitted, the vectorizer has built a dictionary of feature 
-indices::
+indices:
+
+.. sourcecode:: pycon
 
   >>> count_vect.vocabulary_.get(u'algorithm')
   4690
@@ -258,7 +276,9 @@ Inverse Document Frequency".
 
 
 Both **tf** and **tf–idf** can be computed as follows using
-:class:`TfidfTransformer`::
+:class:`TfidfTransformer`:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.feature_extraction.text import TfidfTransformer
   >>> tf_transformer = TfidfTransformer(use_idf=False).fit(X_train_counts)
@@ -272,7 +292,9 @@ our count-matrix to a tf-idf representation.
 These two steps can be combined to achieve the same end result faster
 by skipping redundant processing. This is done through using the
 ``fit_transform(..)`` method as shown below, and as mentioned in the note
-in the previous section::
+in the previous section:
+
+.. sourcecode:: pycon
 
   >>> tfidf_transformer = TfidfTransformer()
   >>> X_train_tfidf = tfidf_transformer.fit_transform(X_train_counts)
@@ -288,7 +310,9 @@ the category of a post. Let's start with a :ref:`naïve Bayes <naive_bayes>`
 classifier, which
 provides a nice baseline for this task. ``scikit-learn`` includes several
 variants of this classifier; the one most suitable for word counts is the
-multinomial variant::
+multinomial variant:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.naive_bayes import MultinomialNB
   >>> clf = MultinomialNB().fit(X_train_tfidf, twenty_train.target)
@@ -296,7 +320,9 @@ multinomial variant::
 To try to predict the outcome on a new document we need to extract
 the features using almost the same feature extracting chain as before.
 The difference is that we call ``transform`` instead of ``fit_transform``
-on the transformers, since they have already been fit to the training set::
+on the transformers, since they have already been fit to the training set:
+
+.. sourcecode:: pycon
 
   >>> docs_new = ['God is love', 'OpenGL on the GPU is fast']
   >>> X_new_counts = count_vect.transform(docs_new)
@@ -316,7 +342,9 @@ Building a pipeline
 
 In order to make the vectorizer => transformer => classifier easier
 to work with, ``scikit-learn`` provides a :class:`~sklearn.pipeline.Pipeline` class that behaves
-like a compound classifier::
+like a compound classifier:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.pipeline import Pipeline
   >>> text_clf = Pipeline([('vect', CountVectorizer()),
@@ -326,7 +354,9 @@ like a compound classifier::
 
 The names ``vect``, ``tfidf`` and ``clf`` (classifier) are arbitrary.
 We will use them to perform grid search for suitable hyperparameters below. 
-We can now train the model with a single command::
+We can now train the model with a single command:
+
+.. sourcecode:: pycon
 
   >>> text_clf.fit(twenty_train.data, twenty_train.target)  # doctest: +ELLIPSIS
   Pipeline(...)
@@ -335,7 +365,9 @@ We can now train the model with a single command::
 Evaluation of the performance on the test set
 ---------------------------------------------
 
-Evaluating the predictive accuracy of the model is equally easy::
+Evaluating the predictive accuracy of the model is equally easy:
+
+.. sourcecode:: pycon
 
   >>> import numpy as np
   >>> twenty_test = fetch_20newsgroups(subset='test',
@@ -350,7 +382,9 @@ linear :ref:`support vector machine (SVM) <svm>`,
 which is widely regarded as one of
 the best text classification algorithms (although it's also a bit slower
 than naïve Bayes). We can change the learner by simply plugging a different
-classifier object into our pipeline::
+classifier object into our pipeline:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.linear_model import SGDClassifier
   >>> text_clf = Pipeline([('vect', CountVectorizer()),
@@ -366,7 +400,9 @@ classifier object into our pipeline::
   0.9127...
 
 We achieved 91.3% accuracy using the SVM. ``scikit-learn`` provides further 
-utilities for more detailed performance analysis of the results::
+utilities for more detailed performance analysis of the results:
+
+.. sourcecode:: pycon
 
   >>> from sklearn import metrics
   >>> print(metrics.classification_report(twenty_test.target, predicted,
@@ -427,7 +463,9 @@ Instead of tweaking the parameters of the various components of the
 chain, it is possible to run an exhaustive search of the best
 parameters on a grid of possible values. We try out all classifiers
 on either words or bigrams, with or without idf, and with a penalty
-parameter of either 0.01 or 0.001 for the linear SVM::
+parameter of either 0.01 or 0.001 for the linear SVM:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.model_selection import GridSearchCV
   >>> parameters = {'vect__ngram_range': [(1, 1), (1, 2)],
@@ -439,24 +477,32 @@ Obviously, such an exhaustive search can be expensive. If we have multiple
 CPU cores at our disposal, we can tell the grid searcher to try these eight
 parameter combinations in parallel with the ``n_jobs`` parameter. If we give
 this parameter a value of ``-1``, grid search will detect how many cores
-are installed and use them all::
+are installed and use them all:
+
+.. sourcecode:: pycon
 
   >>> gs_clf = GridSearchCV(text_clf, parameters, cv=5, iid=False, n_jobs=-1)
 
 The grid search instance behaves like a normal ``scikit-learn``
 model. Let's perform the search on a smaller subset of the training data
-to speed up the computation::
+to speed up the computation:
+
+.. sourcecode:: pycon
 
   >>> gs_clf = gs_clf.fit(twenty_train.data[:400], twenty_train.target[:400])
 
 The result of calling ``fit`` on a ``GridSearchCV`` object is a classifier
-that we can use to ``predict``::
+that we can use to ``predict``:
+
+.. sourcecode:: pycon
 
   >>> twenty_train.target_names[gs_clf.predict(['God is love'])[0]]
   'soc.religion.christian'
 
 The object's ``best_score_`` and ``best_params_`` attributes store the best
-mean score and the parameters setting corresponding to that score::
+mean score and the parameters setting corresponding to that score:
+
+.. sourcecode:: pycon
 
   >>> gs_clf.best_score_                                  # doctest: +ELLIPSIS
   0.9...

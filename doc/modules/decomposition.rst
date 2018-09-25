@@ -808,7 +808,9 @@ different minima, even when optimizing the same distance function.
 NMF is best used with the ``fit_transform`` method, which returns the matrix W.
 The matrix H is stored into the fitted model in the ``components_`` attribute;
 the method ``transform`` will decompose a new matrix X_new based on these
-stored components::
+stored components:
+
+.. sourcecode:: pycon
 
     >>> import numpy as np
     >>> X = np.array([[1, 1], [2, 1], [3, 1.2], [4, 1], [5, 0.8], [6, 1]])

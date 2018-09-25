@@ -22,7 +22,9 @@ machine learning usually starts out experimentally.
 
 In scikit-learn a random split into training and test sets
 can be quickly computed with the :func:`train_test_split` helper function.
-Let's load the iris data set to fit a linear support vector machine on it::
+Let's load the iris data set to fit a linear support vector machine on it:
+
+.. sourcecode:: pycon
 
   >>> import numpy as np
   >>> from sklearn.model_selection import train_test_split
@@ -34,7 +36,9 @@ Let's load the iris data set to fit a linear support vector machine on it::
   ((150, 4), (150,))
 
 We can now quickly sample a training set while holding out 40% of the
-data for testing (evaluating) our classifier::
+data for testing (evaluating) our classifier:
+
+.. sourcecode:: pycon
 
   >>> X_train, X_test, y_train, y_test = train_test_split(
   ...     iris.data, iris.target, test_size=0.4, random_state=0)
@@ -100,7 +104,9 @@ The simplest way to use cross-validation is to call the
 The following example demonstrates how to estimate the accuracy of a linear
 kernel support vector machine on the iris dataset by splitting the data, fitting
 a model and computing the score 5 consecutive times (with different splits each
-time)::
+time):
+
+.. sourcecode:: pycon
 
   >>> from sklearn.model_selection import cross_val_score
   >>> clf = svm.SVC(kernel='linear', C=1)
@@ -109,14 +115,18 @@ time)::
   array([0.96..., 1.  ..., 0.96..., 0.96..., 1.        ])
 
 The mean score and the 95\% confidence interval of the score estimate are hence
-given by::
+given by:
+
+.. sourcecode:: pycon
 
   >>> print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
   Accuracy: 0.98 (+/- 0.03)
 
 By default, the score computed at each CV iteration is the ``score``
 method of the estimator. It is possible to change this by using the
-scoring parameter::
+scoring parameter:
+
+.. sourcecode:: pycon
 
   >>> from sklearn import metrics
   >>> scores = cross_val_score(
@@ -134,7 +144,9 @@ being used if the estimator derives from :class:`ClassifierMixin
 <sklearn.base.ClassifierMixin>`.
 
 It is also possible to use other cross validation strategies by passing a cross
-validation iterator instead, for instance::
+validation iterator instead, for instance:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.model_selection import ShuffleSplit
   >>> n_samples = iris.data.shape[0]
@@ -147,7 +159,9 @@ validation iterator instead, for instance::
     Just as it is important to test a predictor on data held-out from
     training, preprocessing (such as standardization, feature selection, etc.)
     and similar :ref:`data transformations <data-transforms>` similarly should
-    be learnt from a training set and applied to held-out data for prediction::
+    be learnt from a training set and applied to held-out data for prediction:
+
+.. sourcecode:: pycon
 
       >>> from sklearn import preprocessing
       >>> X_train, X_test, y_train, y_test = train_test_split(
@@ -160,7 +174,9 @@ validation iterator instead, for instance::
       0.9333...
 
     A :class:`Pipeline <sklearn.pipeline.Pipeline>` makes it easier to compose
-    estimators, providing this behavior under cross-validation::
+    estimators, providing this behavior under cross-validation:
+
+.. sourcecode:: pycon
 
       >>> from sklearn.pipeline import make_pipeline
       >>> clf = make_pipeline(preprocessing.StandardScaler(), svm.SVC(C=1))
@@ -199,7 +215,9 @@ You may also retain the estimator fitted on each training set by setting
 ``return_estimator=True``.
 
 The multiple metrics can be specified either as a list, tuple or set of
-predefined scorer names::
+predefined scorer names:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.model_selection import cross_validate
     >>> from sklearn.metrics import recall_score
@@ -212,7 +230,9 @@ predefined scorer names::
     >>> scores['test_recall_macro']                       # doctest: +ELLIPSIS
     array([0.96..., 1.  ..., 0.96..., 0.96..., 1.        ])
 
-Or as a dict mapping scorer name to a predefined or custom scoring function::
+Or as a dict mapping scorer name to a predefined or custom scoring function:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.metrics.scorer import make_scorer
     >>> scoring = {'prec_macro': 'precision_macro',
@@ -225,7 +245,9 @@ Or as a dict mapping scorer name to a predefined or custom scoring function::
     >>> scores['train_rec_micro']                         # doctest: +ELLIPSIS
     array([0.97..., 0.97..., 0.99..., 0.98..., 0.98...])
 
-Here is an example of ``cross_validate`` using a single metric::
+Here is an example of ``cross_validate`` using a single metric:
+
+.. sourcecode:: pycon
 
     >>> scores = cross_validate(clf, iris.data, iris.target,
     ...                         scoring='precision_macro', cv=5,
@@ -311,7 +333,9 @@ called folds (if :math:`k = n`, this is equivalent to the *Leave One
 Out* strategy), of equal sizes (if possible). The prediction function is
 learned using :math:`k - 1` folds, and the fold left out is used for test.
 
-Example of 2-fold cross-validation on a dataset with 4 samples::
+Example of 2-fold cross-validation on a dataset with 4 samples:
+
+.. sourcecode:: pycon
 
   >>> import numpy as np
   >>> from sklearn.model_selection import KFold
@@ -333,7 +357,9 @@ Here is a visualization of the cross-validation behavior. Note that
 
 Each fold is constituted by two arrays: the first one is related to the
 *training set*, and the second one to the *test set*.
-Thus, one can create the training/test sets using numpy indexing::
+Thus, one can create the training/test sets using numpy indexing:
+
+.. sourcecode:: pycon
 
   >>> X = np.array([[0., 0.], [1., 1.], [-1., -1.], [2., 2.]])
   >>> y = np.array([0, 1, 0, 1])
@@ -347,7 +373,9 @@ Repeated K-Fold
 requires to run :class:`KFold` n times, producing different splits in
 each repetition.
 
-Example of 2-fold K-Fold repeated 2 times::
+Example of 2-fold K-Fold repeated 2 times:
+
+.. sourcecode:: pycon
 
   >>> import numpy as np
   >>> from sklearn.model_selection import RepeatedKFold
@@ -375,7 +403,9 @@ set is created by taking all the samples except one, the test set being
 the sample left out. Thus, for :math:`n` samples, we have :math:`n` different
 training sets and :math:`n` different tests set. This cross-validation
 procedure does not waste much data as only one sample is removed from the
-training set::
+training set:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.model_selection import LeaveOneOut
 
@@ -434,7 +464,9 @@ set. For :math:`n` samples, this produces :math:`{n \choose p}` train-test
 pairs. Unlike :class:`LeaveOneOut` and :class:`KFold`, the test sets will
 overlap for :math:`p > 1`.
 
-Example of Leave-2-Out on a dataset with 4 samples::
+Example of Leave-2-Out on a dataset with 4 samples:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.model_selection import LeavePOut
 
@@ -465,7 +497,9 @@ It is possible to control the randomness for reproducibility of the
 results by explicitly seeding the ``random_state`` pseudo random number
 generator.
 
-Here is a usage example::
+Here is a usage example:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.model_selection import ShuffleSplit
   >>> X = np.arange(10)
@@ -509,7 +543,9 @@ folds: each set contains approximately the same percentage of samples of each
 target class as the complete set.
 
 Example of stratified 3-fold cross-validation on a dataset with 10 samples from
-two slightly unbalanced classes::
+two slightly unbalanced classes:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.model_selection import StratifiedKFold
 
@@ -580,7 +616,9 @@ model is flexible enough to learn from highly person specific features it
 could fail to generalize to new subjects. :class:`GroupKFold` makes it possible
 to detect this kind of overfitting situations.
 
-Imagine you have three subjects, each with an associated number from 1 to 3::
+Imagine you have three subjects, each with an associated number from 1 to 3:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.model_selection import GroupKFold
 
@@ -619,7 +657,9 @@ related to a specific group.
 
 For example, in the cases of multiple experiments, :class:`LeaveOneGroupOut`
 can be used to create a cross-validation based on the different experiments:
-we create a training set using the samples of all the experiments except one::
+we create a training set using the samples of all the experiments except one:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.model_selection import LeaveOneGroupOut
 
@@ -643,7 +683,9 @@ Leave P Groups Out
 :class:`LeavePGroupsOut` is similar as :class:`LeaveOneGroupOut`, but removes
 samples related to :math:`P` groups for each training/test set.
 
-Example of Leave-2-Group Out::
+Example of Leave-2-Group Out:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.model_selection import LeavePGroupsOut
 
@@ -665,7 +707,9 @@ The :class:`GroupShuffleSplit` iterator behaves as a combination of
 sequence of randomized partitions in which a subset of groups are held
 out for each split.
 
-Here is a usage example::
+Here is a usage example:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.model_selection import GroupShuffleSplit
 
@@ -737,7 +781,9 @@ is always used to train the model.
 This class can be used to cross-validate time series data samples
 that are observed at fixed time intervals.
 
-Example of 3-split time series cross-validation on a dataset with 6 samples::
+Example of 3-split time series cross-validation on a dataset with 6 samples:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.model_selection import TimeSeriesSplit
 

@@ -185,19 +185,25 @@ def adjusted_rand_score(labels_true, labels_pred):
       1.0
 
     Labelings that assign all classes members to the same clusters
-    are complete be not always pure, hence penalized::
+    are complete be not always pure, hence penalized:
+
+.. sourcecode:: pycon
 
       >>> adjusted_rand_score([0, 0, 1, 2], [0, 0, 1, 1])  # doctest: +ELLIPSIS
       0.57...
 
     ARI is symmetric, so labelings that have pure clusters with members
-    coming from the same classes but unnecessary splits are penalized::
+    coming from the same classes but unnecessary splits are penalized:
+
+.. sourcecode:: pycon
 
       >>> adjusted_rand_score([0, 0, 1, 1], [0, 0, 1, 2])  # doctest: +ELLIPSIS
       0.57...
 
     If classes members are completely split across different clusters, the
-    assignment is totally incomplete, hence the ARI is very low::
+    assignment is totally incomplete, hence the ARI is very low:
+
+.. sourcecode:: pycon
 
       >>> adjusted_rand_score([0, 0, 0, 0], [0, 1, 2, 3])
       0.0
@@ -360,14 +366,18 @@ def homogeneity_score(labels_true, labels_pred):
     Examples
     --------
 
-    Perfect labelings are homogeneous::
+    Perfect labelings are homogeneous:
+
+.. sourcecode:: pycon
 
       >>> from sklearn.metrics.cluster import homogeneity_score
       >>> homogeneity_score([0, 0, 1, 1], [1, 1, 0, 0])
       1.0
 
     Non-perfect labelings that further split classes into more clusters can be
-    perfectly homogeneous::
+    perfectly homogeneous:
+
+.. sourcecode:: pycon
 
       >>> print("%.6f" % homogeneity_score([0, 0, 1, 1], [0, 0, 1, 2]))
       ...                                                  # doctest: +ELLIPSIS
@@ -377,7 +387,9 @@ def homogeneity_score(labels_true, labels_pred):
       1.000000
 
     Clusters that include samples from different classes do not make for an
-    homogeneous labeling::
+    homogeneous labeling:
+
+.. sourcecode:: pycon
 
       >>> print("%.6f" % homogeneity_score([0, 0, 1, 1], [0, 1, 0, 1]))
       ...                                                  # doctest: +ELLIPSIS
@@ -434,14 +446,18 @@ def completeness_score(labels_true, labels_pred):
     Examples
     --------
 
-    Perfect labelings are complete::
+    Perfect labelings are complete:
+
+.. sourcecode:: pycon
 
       >>> from sklearn.metrics.cluster import completeness_score
       >>> completeness_score([0, 0, 1, 1], [1, 1, 0, 0])
       1.0
 
     Non-perfect labelings that assign all classes members to the same clusters
-    are still complete::
+    are still complete:
+
+.. sourcecode:: pycon
 
       >>> print(completeness_score([0, 0, 1, 1], [0, 0, 0, 0]))
       1.0
@@ -449,7 +465,9 @@ def completeness_score(labels_true, labels_pred):
       0.999...
 
     If classes members are split across different clusters, the
-    assignment cannot be complete::
+    assignment cannot be complete:
+
+.. sourcecode:: pycon
 
       >>> print(completeness_score([0, 0, 1, 1], [0, 1, 0, 1]))
       0.0
@@ -511,7 +529,9 @@ def v_measure_score(labels_true, labels_pred):
     Examples
     --------
 
-    Perfect labelings are both homogeneous and complete, hence have score 1.0::
+    Perfect labelings are both homogeneous and complete, hence have score 1.0:
+
+.. sourcecode:: pycon
 
       >>> from sklearn.metrics.cluster import v_measure_score
       >>> v_measure_score([0, 0, 1, 1], [0, 0, 1, 1])
@@ -520,7 +540,9 @@ def v_measure_score(labels_true, labels_pred):
       1.0
 
     Labelings that assign all classes members to the same clusters
-    are complete be not homogeneous, hence penalized::
+    are complete be not homogeneous, hence penalized:
+
+.. sourcecode:: pycon
 
       >>> print("%.6f" % v_measure_score([0, 0, 1, 2], [0, 0, 1, 1]))
       ...                                                  # doctest: +ELLIPSIS
@@ -531,7 +553,9 @@ def v_measure_score(labels_true, labels_pred):
 
     Labelings that have pure clusters with members coming from the same
     classes are homogeneous but un-necessary splits harms completeness
-    and thus penalize V-measure as well::
+    and thus penalize V-measure as well:
+
+.. sourcecode:: pycon
 
       >>> print("%.6f" % v_measure_score([0, 0, 1, 1], [0, 0, 1, 2]))
       ...                                                  # doctest: +ELLIPSIS
@@ -541,14 +565,18 @@ def v_measure_score(labels_true, labels_pred):
       0.66...
 
     If classes members are completely split across different clusters,
-    the assignment is totally incomplete, hence the V-Measure is null::
+    the assignment is totally incomplete, hence the V-Measure is null:
+
+.. sourcecode:: pycon
 
       >>> print("%.6f" % v_measure_score([0, 0, 0, 0], [0, 1, 2, 3]))
       ...                                                  # doctest: +ELLIPSIS
       0.0...
 
     Clusters that include samples from totally different classes totally
-    destroy the homogeneity of the labeling, hence::
+    destroy the homogeneity of the labeling, hence:
+
+.. sourcecode:: pycon
 
       >>> print("%.6f" % v_measure_score([0, 0, 1, 1], [0, 0, 0, 0]))
       ...                                                  # doctest: +ELLIPSIS
@@ -697,7 +725,9 @@ def adjusted_mutual_info_score(labels_true, labels_pred,
     --------
 
     Perfect labelings are both homogeneous and complete, hence have
-    score 1.0::
+    score 1.0:
+
+.. sourcecode:: pycon
 
       >>> from sklearn.metrics.cluster import adjusted_mutual_info_score
       >>> adjusted_mutual_info_score([0, 0, 1, 1], [0, 0, 1, 1])
@@ -708,7 +738,9 @@ def adjusted_mutual_info_score(labels_true, labels_pred,
       1.0
 
     If classes members are completely split across different clusters,
-    the assignment is totally in-complete, hence the AMI is null::
+    the assignment is totally in-complete, hence the AMI is null:
+
+.. sourcecode:: pycon
 
       >>> adjusted_mutual_info_score([0, 0, 0, 0], [0, 1, 2, 3])
       ... # doctest: +SKIP
@@ -819,7 +851,9 @@ def normalized_mutual_info_score(labels_true, labels_pred,
     --------
 
     Perfect labelings are both homogeneous and complete, hence have
-    score 1.0::
+    score 1.0:
+
+.. sourcecode:: pycon
 
       >>> from sklearn.metrics.cluster import normalized_mutual_info_score
       >>> normalized_mutual_info_score([0, 0, 1, 1], [0, 0, 1, 1])
@@ -830,7 +864,9 @@ def normalized_mutual_info_score(labels_true, labels_pred,
       1.0
 
     If classes members are completely split across different clusters,
-    the assignment is totally in-complete, hence the NMI is null::
+    the assignment is totally in-complete, hence the NMI is null:
+
+.. sourcecode:: pycon
 
       >>> normalized_mutual_info_score([0, 0, 0, 0], [0, 1, 2, 3])i
       ... # doctest: +SKIP
@@ -907,7 +943,9 @@ def fowlkes_mallows_score(labels_true, labels_pred, sparse=False):
     --------
 
     Perfect labelings are both homogeneous and complete, hence have
-    score 1.0::
+    score 1.0:
+
+.. sourcecode:: pycon
 
       >>> from sklearn.metrics.cluster import fowlkes_mallows_score
       >>> fowlkes_mallows_score([0, 0, 1, 1], [0, 0, 1, 1])
@@ -916,7 +954,9 @@ def fowlkes_mallows_score(labels_true, labels_pred, sparse=False):
       1.0
 
     If classes members are completely split across different clusters,
-    the assignment is totally random, hence the FMI is null::
+    the assignment is totally random, hence the FMI is null:
+
+.. sourcecode:: pycon
 
       >>> fowlkes_mallows_score([0, 0, 0, 0], [0, 1, 2, 3])
       0.0

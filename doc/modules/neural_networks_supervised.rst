@@ -81,7 +81,9 @@ that trains using `Backpropagation <http://ufldl.stanford.edu/wiki/index.php/Bac
 MLP trains on two arrays: array X of size (n_samples, n_features), which holds
 the training samples represented as floating point feature vectors; and array
 y of size (n_samples,), which holds the target values (class labels) for the
-training samples::
+training samples:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.neural_network import MLPClassifier
     >>> X = [[0., 0.], [1., 1.]]
@@ -99,13 +101,17 @@ training samples::
                   shuffle=True, solver='lbfgs', tol=0.0001,
                   validation_fraction=0.1, verbose=False, warm_start=False)
 
-After fitting (training), the model can predict labels for new samples::
+After fitting (training), the model can predict labels for new samples:
+
+.. sourcecode:: pycon
 
     >>> clf.predict([[2., 2.], [-1., -2.]])
     array([1, 0])
 
 MLP can fit a non-linear model to the training data. ``clf.coefs_``
-contains the weight matrices that constitute the model parameters::
+contains the weight matrices that constitute the model parameters:
+
+.. sourcecode:: pycon
 
     >>> [coef.shape for coef in clf.coefs_]
     [(2, 5), (5, 2), (2, 1)]
@@ -117,7 +123,9 @@ Cross-Entropy loss function, which allows probability estimates by running the
 MLP trains using Backpropagation. More precisely, it trains using some form of
 gradient descent and the gradients are calculated using Backpropagation. For
 classification, it minimizes the Cross-Entropy loss function, giving a vector
-of probability estimates :math:`P(y|x)` per sample :math:`x`::
+of probability estimates :math:`P(y|x)` per sample :math:`x`:
+
+.. sourcecode:: pycon
 
     >>> clf.predict_proba([[2., 2.], [1., 2.]])  # doctest: +ELLIPSIS
     array([[1.967...e-04, 9.998...-01],
@@ -131,7 +139,9 @@ Further, the model supports :ref:`multi-label classification <multiclass>`
 in which a sample can belong to more than one class. For each class, the raw
 output passes through the logistic function. Values larger or equal to `0.5`
 are rounded to `1`, otherwise to `0`. For a predicted output of a sample, the
-indices where the value is `1` represents the assigned classes of that sample::
+indices where the value is `1` represents the assigned classes of that sample:
+
+.. sourcecode:: pycon
 
     >>> X = [[0., 0.], [1., 1.]]
     >>> y = [[0, 1], [1, 1]]
@@ -355,7 +365,9 @@ More control with warm_start
 ============================
 If you want more control over stopping criteria or learning rate in SGD,
 or want to do additional monitoring, using ``warm_start=True`` and
-``max_iter=1`` and iterating yourself can be helpful::
+``max_iter=1`` and iterating yourself can be helpful:
+
+.. sourcecode:: pycon
 
     >>> X = [[0., 0.], [1., 1.]]
     >>> y = [0, 1]

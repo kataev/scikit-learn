@@ -11,7 +11,9 @@ As we have seen, every estimator exposes a ``score`` method that can judge
 the quality of the fit (or the prediction) on new data. **Bigger is
 better**.
 
-::
+:
+
+.. sourcecode:: pycon
 
     >>> from sklearn import datasets, svm
     >>> digits = datasets.load_digits()
@@ -23,7 +25,9 @@ better**.
 
 To get a better measure of prediction accuracy (which we can use as a
 proxy for goodness of fit of the model), we can successively split the
-data in *folds* that we use for training and testing::
+data in *folds* that we use for training and testing:
+
+.. sourcecode:: pycon
 
     >>> import numpy as np
     >>> X_folds = np.array_split(X_digits, 3)
@@ -70,7 +74,9 @@ This example shows an example usage of the ``split`` method.
     Train: [0 1 2 3 4 5 8 9] | test: [6 7]
     Train: [0 1 2 3 4 5 6 7] | test: [8 9]
 
-The cross-validation can then be performed easily::
+The cross-validation can then be performed easily:
+
+.. sourcecode:: pycon
 
     >>> [svc.fit(X_digits[train], y_digits[train]).score(X_digits[test], y_digits[test])
     ...          for train, test in k_fold.split(X_digits)]  # doctest: +ELLIPSIS
@@ -211,7 +217,9 @@ Grid-search
 scikit-learn provides an object that, given data, computes the score
 during the fit of an estimator on a parameter grid and chooses the
 parameters to maximize the cross-validation score. This object takes an
-estimator during the construction and exposes an estimator API::
+estimator during the construction and exposes an estimator API:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.model_selection import GridSearchCV, cross_val_score
     >>> Cs = np.logspace(-6, -1, 10)
@@ -236,7 +244,9 @@ version 0.22.
 
 .. topic:: Nested cross-validation
 
-    ::
+    :
+
+.. sourcecode:: pycon
 
         >>> cross_val_score(clf, X_digits, y_digits) # doctest: +SKIP
         array([0.938..., 0.963..., 0.944...])
@@ -260,7 +270,9 @@ Cross-validated estimators
 Cross-validation to set a parameter can be done more efficiently on an
 algorithm-by-algorithm basis. This is why, for certain estimators,
 scikit-learn exposes :ref:`cross_validation` estimators that set their
-parameter automatically by cross-validation::
+parameter automatically by cross-validation:
+
+.. sourcecode:: pycon
 
     >>> from sklearn import linear_model, datasets
     >>> lasso = linear_model.LassoCV(cv=3)

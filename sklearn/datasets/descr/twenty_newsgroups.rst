@@ -35,7 +35,9 @@ fetching / caching functions that downloads the data archive from
 the original `20 newsgroups website`_, extracts the archive contents
 in the ``~/scikit_learn_data/20news_home`` folder and calls the
 :func:`sklearn.datasets.load_files` on either the training or
-testing set folder, or both of them::
+testing set folder, or both of them:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.datasets import fetch_20newsgroups
   >>> newsgroups_train = fetch_20newsgroups(subset='train')
@@ -64,7 +66,9 @@ testing set folder, or both of them::
    'talk.religion.misc']
 
 The real data lies in the ``filenames`` and ``target`` attributes. The target
-attribute is the integer index of the category::
+attribute is the integer index of the category:
+
+.. sourcecode:: pycon
 
   >>> newsgroups_train.filenames.shape
   (11314,)
@@ -75,7 +79,9 @@ attribute is the integer index of the category::
 
 It is possible to load only a sub-selection of the categories by passing the
 list of the categories to load to the
-:func:`sklearn.datasets.fetch_20newsgroups` function::
+:func:`sklearn.datasets.fetch_20newsgroups` function:
+
+.. sourcecode:: pycon
 
   >>> cats = ['alt.atheism', 'sci.space']
   >>> newsgroups_train = fetch_20newsgroups(subset='train', categories=cats)
@@ -97,7 +103,9 @@ one first need to turn the text into vectors of numerical values suitable
 for statistical analysis. This can be achieved with the utilities of the
 ``sklearn.feature_extraction.text`` as demonstrated in the following
 example that extract `TF-IDF`_ vectors of unigram tokens
-from a subset of 20news::
+from a subset of 20news:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.feature_extraction.text import TfidfVectorizer
   >>> categories = ['alt.atheism', 'talk.religion.misc',
@@ -111,7 +119,9 @@ from a subset of 20news::
 
 The extracted TF-IDF vectors are very sparse, with an average of 159 non-zero
 components by sample in a more than 30000-dimensional space
-(less than .5% non-zero features)::
+(less than .5% non-zero features):
+
+.. sourcecode:: pycon
 
   >>> vectors.nnz / float(vectors.shape[0])       # doctest: +ELLIPSIS
   159.01327...
@@ -132,7 +142,9 @@ high F-scores, but their results would not generalize to other documents that
 aren't from this window of time.
 
 For example, let's look at the results of a multinomial Naive Bayes classifier,
-which is fast to train and achieves a decent F-score::
+which is fast to train and achieves a decent F-score:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.naive_bayes import MultinomialNB
   >>> from sklearn import metrics

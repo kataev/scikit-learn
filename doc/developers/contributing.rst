@@ -139,7 +139,9 @@ feedback:
 
 - Please include your **operating system type and version number**, as well as
   your **Python, scikit-learn, numpy, and scipy versions**. This information
-  can be found by running the following code snippet::
+  can be found by running the following code snippet:
+
+.. sourcecode:: pycon
 
     >>> import sklearn
     >>> sklearn.show_versions()  # doctest: +SKIP
@@ -1169,7 +1171,9 @@ whether it is just for you or for contributing it to scikit-learn, there are
 several internals of scikit-learn that you should be aware of in addition to
 the scikit-learn API outlined above. You can check whether your estimator
 adheres to the scikit-learn interface and standards by running
-:func:`utils.estimator_checks.check_estimator` on the class::
+:func:`utils.estimator_checks.check_estimator` on the class:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.utils.estimator_checks import check_estimator
   >>> from sklearn.svm import LinearSVC

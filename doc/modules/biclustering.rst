@@ -11,7 +11,9 @@ columns are known as biclusters. Each determines a submatrix of the
 original data matrix with some desired properties.
 
 For instance, given a matrix of shape ``(10, 10)``, one possible bicluster
-with three rows and two columns induces a submatrix of shape ``(3, 2)``::
+with three rows and two columns induces a submatrix of shape ``(3, 2)``:
+
+.. sourcecode:: pycon
 
     >>> import numpy as np
     >>> data = np.arange(100).reshape(10, 10)

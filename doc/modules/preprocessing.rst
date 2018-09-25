@@ -42,7 +42,9 @@ estimator unable to learn from other features correctly as expected.
 
 
 The function :func:`scale` provides a quick and easy way to perform this
-operation on a single array-like dataset::
+operation on a single array-like dataset:
+
+.. sourcecode:: pycon
 
   >>> from sklearn import preprocessing
   >>> import numpy as np
@@ -61,7 +63,9 @@ operation on a single array-like dataset::
         >>> print_options = np.get_printoptions()
         >>> np.set_printoptions(suppress=True)
 
-Scaled data has zero mean and unit variance::
+Scaled data has zero mean and unit variance:
+
+.. sourcecode:: pycon
 
   >>> X_scaled.mean(axis=0)
   array([0., 0., 0.])
@@ -76,7 +80,9 @@ The ``preprocessing`` module further provides a utility class
 the mean and standard deviation on a training set so as to be
 able to later reapply the same transformation on the testing set.
 This class is hence suitable for use in the early steps of a
-:class:`sklearn.pipeline.Pipeline`::
+:class:`sklearn.pipeline.Pipeline`:
+
+.. sourcecode:: pycon
 
   >>> scaler = preprocessing.StandardScaler().fit(X_train)
   >>> scaler
@@ -95,7 +101,9 @@ This class is hence suitable for use in the early steps of a
 
 
 The scaler instance can then be used on new data to transform it the
-same way it did on the training set::
+same way it did on the training set:
+
+.. sourcecode:: pycon
 
   >>> X_test = [[-1., 1., 0.]]
   >>> scaler.transform(X_test)                # doctest: +ELLIPSIS
@@ -118,7 +126,9 @@ respectively.
 The motivation to use this scaling include robustness to very small
 standard deviations of features and preserving zero entries in sparse data.
 
-Here is an example to scale a toy data matrix to the ``[0, 1]`` range::
+Here is an example to scale a toy data matrix to the ``[0, 1]`` range:
+
+.. sourcecode:: pycon
 
   >>> X_train = np.array([[ 1., -1.,  2.],
   ...                     [ 2.,  0.,  0.],
@@ -133,7 +143,9 @@ Here is an example to scale a toy data matrix to the ``[0, 1]`` range::
 
 The same instance of the transformer can then be applied to some new test data
 unseen during the fit call: the same scaling and shifting operations will be
-applied to be consistent with the transformation performed on the train data::
+applied to be consistent with the transformation performed on the train data:
+
+.. sourcecode:: pycon
 
   >>> X_test = np.array([[-3., -1.,  4.]])
   >>> X_test_minmax = min_max_scaler.transform(X_test)
@@ -141,7 +153,9 @@ applied to be consistent with the transformation performed on the train data::
   array([[-1.5       ,  0.        ,  1.66666667]])
 
 It is possible to introspect the scaler attributes to find about the exact
-nature of the transformation learned on the training data::
+nature of the transformation learned on the training data:
+
+.. sourcecode:: pycon
 
   >>> min_max_scaler.scale_                             # doctest: +ELLIPSIS
   array([0.5       , 0.5       , 0.33...])
@@ -161,7 +175,9 @@ that the training data lies within the range ``[-1, 1]`` by dividing through
 the largest maximum value in each feature. It is meant for data
 that is already centered at zero or sparse data.
 
-Here is how to use the toy data from the previous example with this scaler::
+Here is how to use the toy data from the previous example with this scaler:
+
+.. sourcecode:: pycon
 
   >>> X_train = np.array([[ 1., -1.,  2.],
   ...                     [ 2.,  0.,  0.],
@@ -271,7 +287,9 @@ and across features.
 
 :class:`QuantileTransformer` and :func:`quantile_transform` provide a
 non-parametric transformation based on the quantile function to map the data to
-a uniform distribution with values between 0 and 1::
+a uniform distribution with values between 0 and 1:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.datasets import load_iris
   >>> from sklearn.model_selection import train_test_split
@@ -286,13 +304,17 @@ a uniform distribution with values between 0 and 1::
 
 This feature corresponds to the sepal length in cm. Once the quantile
 transformation applied, those landmarks approach closely the percentiles
-previously defined::
+previously defined:
+
+.. sourcecode:: pycon
 
   >>> np.percentile(X_train_trans[:, 0], [0, 25, 50, 75, 100])
   ... # doctest: +ELLIPSIS +SKIP
   array([ 0.00... ,  0.24...,  0.49...,  0.73...,  0.99... ])
 
-This can be confirmed on a independent testing set with similar remarks::
+This can be confirmed on a independent testing set with similar remarks:
+
+.. sourcecode:: pycon
 
   >>> np.percentile(X_test[:, 0], [0, 25, 50, 75, 100])
   ... # doctest: +SKIP
@@ -336,7 +358,9 @@ while the Box-Cox transform is given by:
 Box-Cox can only be applied to strictly positive data. In both methods, the
 transformation is parameterized by :math:`\lambda`, which is determined through
 maximum likelihood estimation. Here is an example of using Box-Cox to map
-samples drawn from a lognormal distribution to a normal distribution::
+samples drawn from a lognormal distribution to a normal distribution:
+
+.. sourcecode:: pycon
 
   >>> pt = preprocessing.PowerTransformer(method='box-cox', standardize=False)
   >>> X_lognormal = np.random.RandomState(616).lognormal(size=(3, 3))
@@ -366,7 +390,9 @@ after transformation.
 
 It is also possible to map data to a normal distribution using
 :class:`QuantileTransformer` by setting ``output_distribution='normal'``.
-Using the earlier example with the iris dataset::
+Using the earlier example with the iris dataset:
+
+.. sourcecode:: pycon
 
   >>> quantile_transformer = preprocessing.QuantileTransformer(
   ...     output_distribution='normal', random_state=0)
@@ -401,7 +427,9 @@ classification and clustering contexts.
 
 The function :func:`normalize` provides a quick and easy way to perform this
 operation on a single array-like dataset, either using the ``l1`` or ``l2``
-norms::
+norms:
+
+.. sourcecode:: pycon
 
   >>> X = [[ 1., -1.,  2.],
   ...      [ 2.,  0.,  0.],
@@ -419,14 +447,18 @@ The ``preprocessing`` module further provides a utility class
 the class is stateless as this operation treats samples independently).
 
 This class is hence suitable for use in the early steps of a
-:class:`sklearn.pipeline.Pipeline`::
+:class:`sklearn.pipeline.Pipeline`:
+
+.. sourcecode:: pycon
 
   >>> normalizer = preprocessing.Normalizer().fit(X)  # fit does nothing
   >>> normalizer
   Normalizer(copy=True, norm='l2')
 
 
-The normalizer instance can then be used on sample vectors as any transformer::
+The normalizer instance can then be used on sample vectors as any transformer:
+
+.. sourcecode:: pycon
 
   >>> normalizer.transform(X)                            # doctest: +ELLIPSIS
   array([[ 0.40..., -0.40...,  0.81...],
@@ -462,7 +494,9 @@ Such features can be efficiently coded as integers, for instance
 
 To convert categorical features to such integer codes, we can use the
 :class:`OrdinalEncoder`. This estimator transforms each categorical feature to one
-new feature of integers (0 to n_categories - 1)::
+new feature of integers (0 to n_categories - 1):
+
+.. sourcecode:: pycon
 
     >>> enc = preprocessing.OrdinalEncoder()
     >>> X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
@@ -484,7 +518,9 @@ which transforms each categorical feature with
 ``n_categories`` possible values into ``n_categories`` binary features, with
 one of them 1, and all others 0.
 
-Continuing the example above::
+Continuing the example above:
+
+.. sourcecode:: pycon
 
   >>> enc = preprocessing.OneHotEncoder()
   >>> X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
@@ -498,14 +534,18 @@ Continuing the example above::
          [0., 1., 1., 0., 0., 1.]])
 
 By default, the values each feature can take is inferred automatically
-from the dataset and can be found in the ``categories_`` attribute::
+from the dataset and can be found in the ``categories_`` attribute:
+
+.. sourcecode:: pycon
 
     >>> enc.categories_
     [array(['female', 'male'], dtype=object), array(['from Europe', 'from US'], dtype=object), array(['uses Firefox', 'uses Safari'], dtype=object)]
 
 It is possible to specify this explicitly using the parameter ``categories``.
 There are two genders, four possible continents and four web browsers in our
-dataset::
+dataset:
+
+.. sourcecode:: pycon
 
     >>> genders = ['female', 'male']
     >>> locations = ['from Africa', 'from Asia', 'from Europe', 'from US']
@@ -528,7 +568,9 @@ of setting the ``categories`` manually as above. When
 ``handle_unknown='ignore'`` is specified and unknown categories are encountered
 during transform, no error will be raised but the resulting one-hot encoded
 columns for this feature will be all zeros
-(``handle_unknown='ignore'`` is only supported for one-hot encoding)::
+(``handle_unknown='ignore'`` is only supported for one-hot encoding):
+
+.. sourcecode:: pycon
 
     >>> enc = preprocessing.OneHotEncoder(handle_unknown='ignore')
     >>> X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
@@ -561,7 +603,9 @@ nonlinearity to linear models, for instance.
 K-bins discretization
 ---------------------
 
-:class:`KBinsDiscretizer` discretizers features into ``k`` equal width bins::
+:class:`KBinsDiscretizer` discretizers features into ``k`` equal width bins:
+
+.. sourcecode:: pycon
 
   >>> X = np.array([[ -3., 5., 15 ],
   ...               [  0., 6., 14 ],
@@ -579,7 +623,9 @@ example, these intervals are defined as:
  - feature 2: :math:`{[-\infty, 5), [5, \infty)}`
  - feature 3: :math:`{[-\infty, 14), [14, \infty)}`
 
- Based on these bin intervals, ``X`` is transformed as follows::
+ Based on these bin intervals, ``X`` is transformed as follows:
+
+.. sourcecode:: pycon
 
   >>> est.transform(X)                      # doctest: +SKIP
   array([[ 0., 1., 1.],
@@ -625,7 +671,9 @@ often perform slightly better in practice.
 As for the :class:`Normalizer`, the utility class
 :class:`Binarizer` is meant to be used in the early stages of
 :class:`sklearn.pipeline.Pipeline`. The ``fit`` method does nothing
-as each sample is treated independently of others::
+as each sample is treated independently of others:
+
+.. sourcecode:: pycon
 
   >>> X = [[ 1., -1.,  2.],
   ...      [ 2.,  0.,  0.],
@@ -640,7 +688,9 @@ as each sample is treated independently of others::
          [1., 0., 0.],
          [0., 1., 0.]])
 
-It is possible to adjust the threshold of the binarizer::
+It is possible to adjust the threshold of the binarizer:
+
+.. sourcecode:: pycon
 
   >>> binarizer = preprocessing.Binarizer(threshold=1.1)
   >>> binarizer.transform(X)
@@ -677,7 +727,9 @@ Tools for imputing missing values are discussed at :ref:`impute`.
 Generating polynomial features
 ==============================
 
-Often it's useful to add complexity to the model by considering nonlinear features of the input data. A simple and common method to use is polynomial features, which can get features' high-order and interaction terms. It is implemented in :class:`PolynomialFeatures`::
+Often it's useful to add complexity to the model by considering nonlinear features of the input data. A simple and common method to use is polynomial features, which can get features' high-order and interaction terms. It is implemented in :class:`PolynomialFeatures`:
+
+.. sourcecode:: pycon
 
     >>> import numpy as np
     >>> from sklearn.preprocessing import PolynomialFeatures
@@ -694,7 +746,9 @@ Often it's useful to add complexity to the model by considering nonlinear featur
 
 The features of X have been transformed from :math:`(X_1, X_2)` to :math:`(1, X_1, X_2, X_1^2, X_1X_2, X_2^2)`.
 
-In some cases, only interaction terms among features are required, and it can be gotten with the setting ``interaction_only=True``::
+In some cases, only interaction terms among features are required, and it can be gotten with the setting ``interaction_only=True``:
+
+.. sourcecode:: pycon
 
     >>> X = np.arange(9).reshape(3, 3)
     >>> X                                                 # doctest: +ELLIPSIS
@@ -721,7 +775,9 @@ Custom transformers
 Often, you will want to convert an existing Python function into a transformer
 to assist in data cleaning or processing. You can implement a transformer from
 an arbitrary function with :class:`FunctionTransformer`. For example, to build
-a transformer that applies a log transformation in a pipeline, do::
+a transformer that applies a log transformation in a pipeline, do:
+
+.. sourcecode:: pycon
 
     >>> import numpy as np
     >>> from sklearn.preprocessing import FunctionTransformer
@@ -734,7 +790,9 @@ a transformer that applies a log transformation in a pipeline, do::
 You can ensure that ``func`` and ``inverse_func`` are the inverse of each other
 by setting ``check_inverse=True`` and calling ``fit`` before
 ``transform``. Please note that a warning is raised and can be turned into an
-error with a ``filterwarnings``::
+error with a ``filterwarnings``:
+
+.. sourcecode:: pycon
 
   >>> import warnings
   >>> warnings.filterwarnings("error", message=".*check_inverse*.",

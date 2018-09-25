@@ -207,7 +207,9 @@ the dataset is not too large, you can compute distances for all pairs of inputs.
 If the dataset is large, you can use feature vectors with only one "feature",
 which is an index into a separate data structure, and supply a custom metric
 function that looks up the actual data in this data structure. E.g., to use
-DBSCAN with Levenshtein distances::
+DBSCAN with Levenshtein distances:
+
+.. sourcecode:: pycon
 
     >>> from leven import levenshtein       # doctest: +SKIP
     >>> import numpy as np

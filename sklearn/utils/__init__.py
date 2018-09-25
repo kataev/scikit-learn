@@ -228,7 +228,9 @@ def resample(*arrays, **options):
 
     Examples
     --------
-    It is possible to mix sparse and dense arrays in the same run::
+    It is possible to mix sparse and dense arrays in the same run:
+
+.. sourcecode:: pycon
 
       >>> X = np.array([[1., 0.], [2., 1.], [0., 0.]])
       >>> y = np.array([0, 1, 2])
@@ -334,7 +336,9 @@ def shuffle(*arrays, **options):
 
     Examples
     --------
-    It is possible to mix sparse and dense arrays in the same run::
+    It is possible to mix sparse and dense arrays in the same run:
+
+.. sourcecode:: pycon
 
       >>> X = np.array([[1., 0.], [2., 1.], [0., 0.]])
       >>> y = np.array([0, 1, 2])

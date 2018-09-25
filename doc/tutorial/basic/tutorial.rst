@@ -98,7 +98,9 @@ details on the different datasets can be found in the :ref:`dedicated
 section <datasets>`.
 
 For instance, in the case of the digits dataset, ``digits.data`` gives
-access to the features that can be used to classify the digits samples::
+access to the features that can be used to classify the digits samples:
+
+.. sourcecode:: pycon
 
   >>> print(digits.data)  # doctest: +NORMALIZE_WHITESPACE
   [[ 0.   0.   5. ...   0.   0.   0.]
@@ -111,7 +113,9 @@ access to the features that can be used to classify the digits samples::
 
 and ``digits.target`` gives the ground truth for the digit dataset, that
 is the number corresponding to each digit image that we are trying to
-learn::
+learn:
+
+.. sourcecode:: pycon
 
   >>> digits.target
   array([0, 1, 2, ..., 8, 9, 8])
@@ -121,7 +125,9 @@ learn::
     The data is always a 2D array, shape ``(n_samples, n_features)``, although
     the original data may have had a different shape. In the case of the
     digits, each original sample is an image of shape ``(8, 8)`` and can be
-    accessed using::
+    accessed using:
+
+.. sourcecode:: pycon
 
       >>> digits.images[0]  # doctest: +NORMALIZE_WHITESPACE
       array([[  0.,   0.,   5.,  13.,   9.,   1.,   0.,   0.],
@@ -159,7 +165,9 @@ implements `support vector classification
 <https://en.wikipedia.org/wiki/Support_vector_machine>`_. The
 estimator's constructor takes as arguments the model's parameters.
 
-For now, we will consider the estimator as a black box::
+For now, we will consider the estimator as a black box:
+
+.. sourcecode:: pycon
 
   >>> from sklearn import svm
   >>> clf = svm.SVC(gamma=0.001, C=100.)
@@ -177,7 +185,9 @@ done by passing our training set to the ``fit`` method. For the training
 set, we'll use all the images from our dataset, except for the last
 image, which we'll reserve for our predicting. We select the training set with
 the ``[:-1]`` Python syntax, which produces a new array that contains all but
-the last item from ``digits.data``::
+the last item from ``digits.data``:
+
+.. sourcecode:: pycon
 
   >>> clf.fit(digits.data[:-1], digits.target[:-1])  # doctest: +NORMALIZE_WHITESPACE
   SVC(C=100.0, cache_size=200, class_weight=None, coef0=0.0,
@@ -212,7 +222,9 @@ Model persistence
 -----------------
 
 It is possible to save a model in scikit-learn by using Python's built-in
-persistence model, `pickle <https://docs.python.org/2/library/pickle.html>`_::
+persistence model, `pickle <https://docs.python.org/2/library/pickle.html>`_:
+
+.. sourcecode:: pycon
 
   >>> from sklearn import svm
   >>> from sklearn import datasets
@@ -236,13 +248,17 @@ persistence model, `pickle <https://docs.python.org/2/library/pickle.html>`_::
 In the specific case of scikit-learn, it may be more interesting to use
 joblib's replacement for pickle (``joblib.dump`` & ``joblib.load``),
 which is more efficient on big data but it can only pickle to the disk
-and not to a string::
+and not to a string:
+
+.. sourcecode:: pycon
 
   >>> from sklearn.externals import joblib
   >>> joblib.dump(clf, 'filename.joblib') # doctest: +SKIP
 
 Later, you can reload the pickled model (possibly in another Python process)
-with::
+with:
+
+.. sourcecode:: pycon
 
   >>> clf = joblib.load('filename.joblib') # doctest:+SKIP
 
@@ -266,7 +282,9 @@ predictive.  These are described in more detail in the :ref:`glossary`.
 Type casting
 ~~~~~~~~~~~~
 
-Unless otherwise specified, input will be cast to ``float64``::
+Unless otherwise specified, input will be cast to ``float64``:
+
+.. sourcecode:: pycon
 
   >>> import numpy as np
   >>> from sklearn import random_projection
@@ -286,7 +304,9 @@ In this example, ``X`` is ``float32``, which is cast to ``float64`` by
 ``fit_transform(X)``.
 
 Regression targets are cast to ``float64`` and classification targets are
-maintained::
+maintained:
+
+.. sourcecode:: pycon
 
     >>> from sklearn import datasets
     >>> from sklearn.svm import SVC
@@ -319,7 +339,9 @@ Refitting and updating parameters
 
 Hyper-parameters of an estimator can be updated after it has been constructed
 via the :term:`set_params()<set_params>` method. Calling ``fit()`` more than
-once will overwrite what was learned by any previous ``fit()``::
+once will overwrite what was learned by any previous ``fit()``:
+
+.. sourcecode:: pycon
 
   >>> import numpy as np
   >>> from sklearn.svm import SVC
@@ -356,7 +378,9 @@ Multiclass vs. multilabel fitting
 
 When using :class:`multiclass classifiers <sklearn.multiclass>`,
 the learning and prediction task that is performed is dependent on the format of
-the target data fit upon::
+the target data fit upon:
+
+.. sourcecode:: pycon
 
     >>> from sklearn.svm import SVC
     >>> from sklearn.multiclass import OneVsRestClassifier
@@ -372,7 +396,9 @@ the target data fit upon::
 
 In the above case, the classifier is fit on a 1d array of multiclass labels and
 the ``predict()`` method therefore provides corresponding multiclass predictions.
-It is also possible to fit upon a 2d array of binary label indicators::
+It is also possible to fit upon a 2d array of binary label indicators:
+
+.. sourcecode:: pycon
 
     >>> y = LabelBinarizer().fit_transform(y)
     >>> classif.fit(X, y).predict(X)
@@ -389,7 +415,9 @@ multilabel predictions.
 
 Note that the fourth and fifth instances returned all zeroes, indicating that
 they matched none of the three labels ``fit`` upon. With multilabel outputs, it
-is similarly possible for an instance to be assigned multiple labels::
+is similarly possible for an instance to be assigned multiple labels:
+
+.. sourcecode:: pycon
 
   >> from sklearn.preprocessing import MultiLabelBinarizer
   >> y = [[0, 1], [0, 2], [1, 3], [0, 2, 3], [2, 4]]

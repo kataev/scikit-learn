@@ -45,7 +45,9 @@ Nearest neighbor and the curse of dimensionality
 
     The iris dataset is a classification task consisting in identifying 3
     different types of irises (Setosa, Versicolour, and Virginica) from
-    their petal and sepal length and width::
+    their petal and sepal length and width:
+
+.. sourcecode:: pycon
 
         >>> import numpy as np
         >>> from sklearn import datasets
@@ -80,7 +82,9 @@ Scikit-learn documentation for more information about this type of classifier.)
    :align: center
    :scale: 70
 
-::
+:
+
+.. sourcecode:: pycon
 
     >>> # Split iris data in train and test data
     >>> # A random permutation, to split the data randomly
@@ -138,7 +142,9 @@ Linear model: from regression to sparsity
 
     The diabetes dataset consists of 10 physiological variables (age,
     sex, weight, blood pressure) measure on 442 patients, and an
-    indication of disease progression after one year::
+    indication of disease progression after one year:
+
+.. sourcecode:: pycon
 
         >>> diabetes = datasets.load_diabetes()
         >>> diabetes_X_train = diabetes.data[:-20]
@@ -171,7 +177,9 @@ Linear models: :math:`y = X\beta + \epsilon`
  * :math:`\beta`: Coefficients
  * :math:`\epsilon`: Observation noise
 
-::
+:
+
+.. sourcecode:: pycon
 
     >>> from sklearn import linear_model
     >>> regr = linear_model.LinearRegression()
@@ -208,7 +216,9 @@ induces high variance:
    :scale: 70
    :align: right
 
-::
+:
+
+.. sourcecode:: pycon
 
     >>> X = np.c_[ .5, 1].T
     >>> y = [.5, 1]
@@ -237,7 +247,9 @@ regression:
    :scale: 70
    :align: right
 
-::
+:
+
+.. sourcecode:: pycon
 
     >>> regr = linear_model.Ridge(alpha=.1)
 
@@ -254,7 +266,9 @@ This is an example of **bias/variance tradeoff**: the larger the ridge
 ``alpha`` parameter, the higher the bias and the lower the variance.
 
 We can choose ``alpha`` to minimize left out error, this time using the
-diabetes dataset rather than our synthetic data::
+diabetes dataset rather than our synthetic data:
+
+.. sourcecode:: pycon
 
     >>> alphas = np.logspace(-4, -1, 6)
     >>> from __future__ import print_function
@@ -323,7 +337,9 @@ selection operator), can set some coefficients to zero. Such methods are
 called **sparse method** and sparsity can be seen as an
 application of Occam's razor: *prefer simpler models*.
 
-::
+:
+
+.. sourcecode:: pycon
 
     >>> regr = linear_model.Lasso()
     >>> scores = [regr.set_params(alpha=alpha
@@ -372,7 +388,9 @@ function or **logistic** function:
    y = \textrm{sigmoid}(X\beta - \textrm{offset}) + \epsilon =
    \frac{1}{1 + \textrm{exp}(- X\beta + \textrm{offset})} + \epsilon
 
-::
+:
+
+.. sourcecode:: pycon
 
     >>> log = linear_model.LogisticRegression(solver='lbfgs', C=1e5,
     ...                                       multi_class='multinomial')
@@ -456,7 +474,9 @@ the separating line (less regularization).
 SVMs can be used in regression --:class:`SVR` (Support Vector Regression)--, or in
 classification --:class:`SVC` (Support Vector Classification).
 
-::
+:
+
+.. sourcecode:: pycon
 
     >>> from sklearn import svm
     >>> svc = svm.SVC(kernel='linear')
@@ -513,11 +533,15 @@ creating a decision energy by positioning *kernels* on observations:
 
      *
 
-       - ::
+       - :
+
+.. sourcecode:: pycon
 
             >>> svc = svm.SVC(kernel='linear')
 
-       - ::
+       - :
+
+.. sourcecode:: pycon
 
             >>> svc = svm.SVC(kernel='poly',
             ...               degree=3)
@@ -544,7 +568,9 @@ creating a decision energy by positioning *kernels* on observations:
 
      *
 
-       - ::
+       - :
+
+.. sourcecode:: pycon
 
             >>> svc = svm.SVC(kernel='rbf')
             >>> # gamma: inverse of size of

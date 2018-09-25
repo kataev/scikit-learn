@@ -15,7 +15,9 @@ Label binarization
 ------------------
 
 :class:`LabelBinarizer` is a utility class to help create a label indicator
-matrix from a list of multi-class labels::
+matrix from a list of multi-class labels:
+
+.. sourcecode:: pycon
 
     >>> from sklearn import preprocessing
     >>> lb = preprocessing.LabelBinarizer()
@@ -27,7 +29,9 @@ matrix from a list of multi-class labels::
     array([[1, 0, 0, 0],
            [0, 0, 0, 1]])
 
-For multiple labels per instance, use :class:`MultiLabelBinarizer`::
+For multiple labels per instance, use :class:`MultiLabelBinarizer`:
+
+.. sourcecode:: pycon
 
     >>> lb = preprocessing.MultiLabelBinarizer()
     >>> lb.fit_transform([(1, 2), (3,)])
@@ -42,7 +46,9 @@ Label encoding
 :class:`LabelEncoder` is a utility class to help normalize labels such that
 they contain only values between 0 and n_classes-1. This is sometimes useful
 for writing efficient Cython routines. :class:`LabelEncoder` can be used as
-follows::
+follows:
+
+.. sourcecode:: pycon
 
     >>> from sklearn import preprocessing
     >>> le = preprocessing.LabelEncoder()
@@ -56,7 +62,9 @@ follows::
     array([1, 1, 2, 6])
 
 It can also be used to transform non-numerical labels (as long as they are
-hashable and comparable) to numerical labels::
+hashable and comparable) to numerical labels:
+
+.. sourcecode:: pycon
 
     >>> le = preprocessing.LabelEncoder()
     >>> le.fit(["paris", "paris", "tokyo", "amsterdam"])
