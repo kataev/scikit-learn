@@ -347,10 +347,12 @@ like a compound classifier:
 .. sourcecode:: pycon
 
   >>> from sklearn.pipeline import Pipeline
-  >>> text_clf = Pipeline([('vect', CountVectorizer()),
-  ...                      ('tfidf', TfidfTransformer()),
-  ...                      ('clf', MultinomialNB()),
+  >>> text_clf = Pipeline([
+  ...     ('vect', CountVectorizer()),
+  ...     ('tfidf', TfidfTransformer()),
+  ...     ('clf', MultinomialNB()),
   ... ])
+
 
 The names ``vect``, ``tfidf`` and ``clf`` (classifier) are arbitrary.
 We will use them to perform grid search for suitable hyperparameters below. 
@@ -387,12 +389,14 @@ classifier object into our pipeline:
 .. sourcecode:: pycon
 
   >>> from sklearn.linear_model import SGDClassifier
-  >>> text_clf = Pipeline([('vect', CountVectorizer()),
-  ...                      ('tfidf', TfidfTransformer()),
-  ...                      ('clf', SGDClassifier(loss='hinge', penalty='l2',
-  ...                                            alpha=1e-3, random_state=42,
-  ...                                            max_iter=5, tol=None)),
+  >>> text_clf = Pipeline([
+  ...     ('vect', CountVectorizer()),
+  ...     ('tfidf', TfidfTransformer()),
+  ...     ('clf', SGDClassifier(loss='hinge', penalty='l2',
+  ...                           alpha=1e-3, random_state=42,
+  ...                           max_iter=5, tol=None)),
   ... ])
+
   >>> text_clf.fit(twenty_train.data, twenty_train.target)  # doctest: +ELLIPSIS
   Pipeline(...)
   >>> predicted = text_clf.predict(docs_test)
@@ -468,10 +472,12 @@ parameter of either 0.01 or 0.001 for the linear SVM:
 .. sourcecode:: pycon
 
   >>> from sklearn.model_selection import GridSearchCV
-  >>> parameters = {'vect__ngram_range': [(1, 1), (1, 2)],
-  ...               'tfidf__use_idf': (True, False),
-  ...               'clf__alpha': (1e-2, 1e-3),
+  >>> parameters = {
+  ...     'vect__ngram_range': [(1, 1), (1, 2)],
+  ...     'tfidf__use_idf': (True, False),
+  ...     'clf__alpha': (1e-2, 1e-3),
   ... }
+
 
 Obviously, such an exhaustive search can be expensive. If we have multiple
 CPU cores at our disposal, we can tell the grid searcher to try these eight
