@@ -270,8 +270,8 @@ diabetes dataset rather than our synthetic data:
 
 .. sourcecode:: pycon
 
-    >>> alphas = np.logspace(-4, -1, 6)
     >>> from __future__ import print_function
+    >>> alphas = np.logspace(-4, -1, 6)
     >>> print([regr.set_params(alpha=alpha
     ...             ).fit(diabetes_X_train, diabetes_y_train,
     ...             ).score(diabetes_X_test, diabetes_y_test)
